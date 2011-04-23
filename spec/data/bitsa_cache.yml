@@ -1,0 +1,16 @@
+---
+- "2010-01-21T21:06:45.766Z"
+- http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a8e9c166e:
+  - - test1@example.com
+    - My Tester
+  http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a8e9c176e:
+  - - john_smith@here.org
+    - ""
+  http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a549c176e:
+  - - Joan.bloggs@somewhere.com.au
+    - Joan Bloggshere
+  http://www.google.com/m8/feeds/contacts/person%40example.org/base/685e301a549c176e:
+  - - email1@somewhere.com
+    - Mr Multiple
+  - - email2@somewhere.com
+    - Mr Multiple

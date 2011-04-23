@@ -1,0 +1,61 @@
+
+lib/bitsa/contacts_cache.rb,478
+module Bitsa #:nodoc:Bitsa22,746
+  class ContactsCacheContactsCache25,792
+    def initialize(cache_file_path, lifespan_days)initialize38,1157
+    def stale?stale?46,1428
+    def clear!clear!52,1604
+    def addressesaddresses58,1718
+    def get(id)get63,1802
+    def search(qry)search67,1848
+    def update(id, name, addresses)update80,2250
+    def delete(id)delete84,2351
+    def savesave88,2407
+    def load_from_file_systemload_from_file_system96,2563
+
+lib/bitsa/version.rb,36
+module Bitsa  #:nodoc:Bitsa20,737
+
+lib/bitsa/settings.rb,121
+module Bitsa #:nodoc:Bitsa20,726
+  class SettingsSettings23,775
+    def load(config_file_hash, options)load39,1229
+
+lib/bitsa/gmail_contacts_loader.rb,263
+module Bitsa #:nodoc:Bitsa22,785
+  class GmailContactsLoaderGmailContactsLoader25,876
+    def initialize(user, pw) #, lifespan_days)initialize31,1057
+    def update_cache(cache)update_cache38,1256
+    def load_chunk(client, idx, cache)load_chunk52,1567
+
+lib/bitsa/args_processor.rb,112
+module Bitsa #:nodoc:Bitsa24,779
+  class ArgsProcessorArgsProcessor28,916
+    def parse(args)parse45,1411
+
+lib/bitsa/config_file.rb,132
+module Bitsa #:nodoc:Bitsa22,770
+  class ConfigFileConfigFile25,840
+    def initialize(config_file_path_name)initialize31,965
+
+lib/bitsa.rb,113
+module BitsaBitsa23,809
+  class BitsaAppBitsaApp26,852
+    def run(global_opts, cmd, search_data)run29,893
+
+spec/contacts_cache_spec.rb,260
+  def create_cache(last_modified = nil, lifespan_days = 1)create_cache267,8763
+  def create_empty_temp_filecreate_empty_temp_file278,9195
+   def should_be_an_empty_cache cacheshould_be_an_empty_cache286,9349
+   def read_test_dataread_test_data293,9531
+
+spec/gmail_contacts_loader_spec.rb,0
+
+spec/confg_file_spec.rb,0
+
+spec/args_processor_spec.rb,0
+
+spec/settings_spec.rb,51
+   def load_settings(options)load_settings28,796
+
+spec/helper.rb,0
