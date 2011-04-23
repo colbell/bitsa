@@ -2,7 +2,6 @@
 
 * <http://github.com/colbell/bitsa>
 
-## Description:
 
 A command line tool to access your GMail contacts. Designed to be used
 from Mutt but should be able to be used from any email client that
@@ -43,7 +42,7 @@ To search for all contacts that contain the string rob:
     Rob_Smith@example.com.au	Robert Smith
     Rob_Smith@example.com  	Robert Smith
     robert@example.com	        Robert Jones
-    jeff@awaresystems.net	Robert Smith
+    jeff@example.net	Robert Smith
     robert@robertsystems	Robert Brown
 
 * TODO: Config file
