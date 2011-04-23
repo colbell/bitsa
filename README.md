@@ -60,7 +60,7 @@ To search for all contacts that contain the string rob:
 
 ## Usage - Mutt
 
-To use for address lookup (<ctrl> t) in Mutt put the following in your
+To use for address lookup (&lt;ctrl&gt; t) in Mutt put the following in your
 `~/.muttrc` file:
 
     set query_command = "bitsa search '%s'"
