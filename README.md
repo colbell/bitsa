@@ -16,6 +16,15 @@ this beta gem.
     gem install --prerelease  bitsa
 
 
+## Cobfiguration 
+
+Bitsa is configured through the configuration file `~/.bitsa_config.yml`. This is
+an example of a configuration file.
+
+    ---
+    :login: myself@example.com
+    :password: mypassword
+    
 ## Usage
 
     Usage: bitsa [global-options] [subcommand] [command-opts]
@@ -43,11 +52,19 @@ To search for all contacts that contain the string rob:
     Rob_Smith@example.com  	Robert Smith
     robert@example.com	        Robert Jones
     jeff@example.net	Robert Smith
-    robert@robertsystems	Robert Brown
+    bob@robertsystems	Robert Brown
 
 * TODO: Config file
 * TODO: auto-refresh
-    
+
+
+## Usage - Mutt
+
+To use for address lookup (<ctrl> t) in Mutt put the following in your
+`~/.muttrc` file:
+
+    set query_command = "bitsa search '%s'"
+
 ## Testing
 
 To run the tests after cloning the repository you first need to
