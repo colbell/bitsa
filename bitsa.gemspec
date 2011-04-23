@@ -3,17 +3,17 @@ $:.push File.expand_path("../lib", __FILE__)
 require "bitsa/version"
 
 Gem::Specification.new do |s|
-  s.name        = "bitsa"
+  s.name        = "Bitsa"
   s.version     = Bitsa::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Colin Noel Bell"]
   s.email       = ["col@baibell.org"]
-  s.homepage    = "http://rubygems.org/gems/bitsa"
+  s.homepage    = "https://github.com/colbell/bitsa"
   s.summary     = %q{Command line GMail Contacts lookup tool.}
   s.description = %q{Allows you to lookup GMail contacts and cache contacts locally from the command line.}
 
   s.required_rubygems_version = ">= 1.3.6"
-  s.rubyforge_project = "bitsa"
+  #s.rubyforge_project = "bitsa"
 
   s.add_dependency "trollop", "1.15"
   s.add_dependency "gdata", "1.1.1"
