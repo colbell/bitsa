@@ -3,7 +3,7 @@
 * <http://github.com/colbell/bitsa>
 
 
-A command line tool to access your GMail contacts. Designed to be used
+A command line tool to access your GMail/Google Apps contacts. Designed to be used
 from Mutt but should be able to be used from any email client that
 supports calling external programs.
 
@@ -19,10 +19,11 @@ this beta gem.
 ## Cobfiguration 
 
 Bitsa is configured through the configuration file `~/.bitsa_config.yml`. This is
-an example of a configuration file.
+an example of a configuration file. Use your GMail (or Google Apps)
+email address for the login.
 
     ---
-    :login: myself@example.com
+    :login: myself@gmail.com
     :password: mypassword
     
 ## Usage
