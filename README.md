@@ -16,17 +16,30 @@ this beta gem.
     gem install --prerelease  bitsa
 
 
-## Cobfiguration 
+## Configuration 
 
-Bitsa is configured through the configuration file `~/.bitsa_config.yml`. This is
-an example of a configuration file. Use your GMail (or Google Apps)
-email address for the login.
+Bitsa is configured through the configuration file
+`~/.bitsa_config.yml`. Use your GMail (or Google Apps) email address
+for the login.
 
     ---
     :login: myself@gmail.com
     :password: mypassword
-    
-## Usage
+    :cache_file_path: ~/.bitsa_cache.yml
+
+The configuration file is not mandatory, you can pass in your email address
+and password on the command line, see [Usage](#usage).    
+
+If you have no configuration file or if `cache_file_path` is not specified in the
+configuration file it will default to `~/.bitsa_cache.yml`
+
+If you store your email password in the configuration file you should
+ensue that it is only readable by you:
+
+    chmod 0600 .bitsa_config.yml
+
+
+## <a name="usage">Usage</a>
 
     Usage: bitsa [global-options] [subcommand] [command-opts]
     
@@ -35,7 +48,7 @@ email address for the login.
             --login, -l <s>:   Login
          --password, -p <s>:   Password
     
-    bitsa subcommands
+    bitsa sub-commands
        update: get the latest changes from Gmail
        reload: Clear all cached addresses and reload from Gmail
        search: Search for the passed string
@@ -55,9 +68,19 @@ To search for all contacts that contain the string rob:
     jeff@example.net	Robert Smith
     bob@robertsystems	Robert Brown
 
-* TODO: Config file
-* TODO: auto-refresh
+The first time you run Bitsa and then if it has been more than a day
+since it was last updated it will get the latest changes from your
+GMail contacts and copy them to a local cache (~/.bitsa_cache.yml).
 
+You can update your cache with the latest changes at any time by using
+the `update` sub-command:
+
+    $ bitsa update
+
+If you want to clear your local cache and reload from GMail use the
+`reload` sub-command:
+
+    $ bitsa reload
 
 ## Usage - Mutt
 
