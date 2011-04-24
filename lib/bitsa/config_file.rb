@@ -1,6 +1,6 @@
 # Loads configuration data from configuration file.
 #
-# Copyright (C) 2010 Colin Noel Bell.
+# Copyright (C) 2011 Colin Noel Bell.
 #
 # This file is part of Bitsa.
 #

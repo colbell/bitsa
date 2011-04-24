@@ -102,9 +102,7 @@ And then you can run the tests:
 
 ## License:
 
-Copyright 2010 Colin Bell.
-
-This file is part of Bitsa.
+Copyright 2011 Colin Bell.
 
 Bitsa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
