@@ -54,12 +54,6 @@ module Bitsa #:nodoc:
       @source_last_modified = nil
     end
 
-    # FIXME: Do I need this?
-    def addresses
-      @addresses.values
-    end
-
-    # FIXME: Why do I need this?
     def get(id)
       @addresses[id]
     end

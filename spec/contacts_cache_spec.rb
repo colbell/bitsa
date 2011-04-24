@@ -62,20 +62,16 @@ describe Bitsa::ContactsCache do
       @cache.size.should == 4
     end
 
-    it "should have the correct entries" do
-      @cache.addresses.should == read_test_data
-    end
-
-     it "should return all entries if blank searched for" do
+    it "should return all entries if blank searched for" do
       results = @cache.search('')
       results.size.should == 5
-      @cache.addresses.should =~ read_test_data
+      results.flatten(0).sort.should == read_test_data
     end
 
     it "should return all entries if a nill string searched for" do
       results = @cache.search(nil)
       results.size.should == 5
-      @cache.addresses.should =~ read_test_data
+      results.flatten(0).sort.should == read_test_data
     end
 
     it "should find correctly when searching by start of email address" do
@@ -292,7 +288,7 @@ describe Bitsa::ContactsCache do
 
    def read_test_data
      source_last_modified, addresses = YAML::load_file(@tmp_file.path)
-     addresses.values
+     addresses.values.flatten(1).sort
    end
 
  end
