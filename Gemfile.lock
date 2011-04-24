@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bitsa (0.10)
+    bitsa (0.10.beta3)
       gdata (= 1.1.1)
       trollop (= 1.15)
 
