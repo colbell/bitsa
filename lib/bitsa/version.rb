@@ -18,5 +18,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Bitsa  #:nodoc:
-  VERSION = "0.10.beta4"
+  VERSION = "0.10"
 end

@@ -10,10 +10,7 @@ supports calling external programs.
 
 ## Installation
 
-**Note** You need to pass the `--prerelease` flag in order to install
-this beta gem.
-
-    gem install --prerelease  bitsa
+    gem install bitsa
 
 
 ## Configuration 
