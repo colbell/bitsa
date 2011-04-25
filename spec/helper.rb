@@ -1,4 +1,5 @@
-require "rubygems"
+#require "rubygems"
+require "rspec"                 # Requied for rcov to work
 # require "test/unit"
 # require "shoulda"
 # require 'mocha'

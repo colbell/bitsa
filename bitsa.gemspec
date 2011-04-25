@@ -18,8 +18,9 @@ Gem::Specification.new do |s|
   s.add_dependency "gdata", "1.1.1"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
-  s.add_development_dependency "rspec", "~> 2.0.0.beta.22"
+  s.add_development_dependency "rspec", "~> 2.5.0"
   s.add_development_dependency "fakeweb", "~> 1.2.8"
+  s.add_development_dependency "rcov"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
