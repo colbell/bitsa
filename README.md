@@ -65,6 +65,9 @@ To search for all contacts that contain the string rob:
     jeff@example.net	Robert Smith
     bob@robertsystems	Robert Brown
 
+Contacts are returned as email address, the TAB character and then the
+contacts name.
+
 The first time you run Bitsa and then if it has been more than a day
 since it was last updated it will get the latest changes from your
 GMail contacts and copy them to a local cache (~/.bitsa_cache.yml).
@@ -81,10 +84,22 @@ If you want to clear your local cache and reload from GMail use the
 
 ## Usage - Mutt
 
-To use for address lookup (&lt;ctrl&gt; t) in Mutt put the following in your
+To use for address lookup (&lt;CTRL&gt; t) in [Mutt](http://www.mutt.org) put the following in your
 `~/.muttrc` file:
 
     set query_command = "bitsa search '%s'"
+
+## Usage - Sup
+
+To use for address lookup (&lt;CTRL&gt; t) in [Sup](http://sup.rubyforge.org/) put the following in your
+`~/.sup/hooks/extra-contact-addresses.rb` file:
+
+    require "yaml"
+    ignore, contacts = YAML::load_file( ENV['HOME'] + "/.bitsa_cache.yml" )
+
+    contacts.values.flatten.each_slice(2).map do |e,n|
+      "#{e}\t#{n}"
+    end
 
 ## Testing
 
@@ -113,5 +128,3 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-* * * * *
