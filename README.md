@@ -91,7 +91,7 @@ To use for address lookup (&lt;CTRL&gt; t) in [Mutt](http://www.mutt.org) put th
 
 ## Usage - Sup
 
-To use for address lookup (&lt;CTRL&gt; t) in [Sup](http://sup.rubyforge.org/) put the following in your
+To use for address lookup in [Sup](http://sup.rubyforge.org/) put the following in your
 `~/.sup/hooks/extra-contact-addresses.rb` file:
 
     require "yaml"
