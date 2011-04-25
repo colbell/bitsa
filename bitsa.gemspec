@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = %q{Allows you to lookup GMail contacts and cache contacts locally from the command line.}
 
   s.has_rdoc         = true
-  s.extra_rdoc_files = ['README.md']
+  #s.extra_rdoc_files = ['README.md']
 
   s.required_rubygems_version = ">= 1.3.6"
 
