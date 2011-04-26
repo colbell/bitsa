@@ -2,3 +2,11 @@
 
 * 1 major enhancement:
   * Initial release
+
+=== 0.20 
+
+* 1 minor enhancement:
+  * Added coverage to specs.
+
+* 1 documentation improvements:
+  * Add missing files to RDOC.

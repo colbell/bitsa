@@ -1,6 +1,6 @@
-# Bitsa
+= Bitsa
 
-* <http://github.com/colbell/bitsa>
+* http://github.com/colbell/bitsa
 
 
 A command line tool to access your GMail/Google Apps contacts. Designed to be used
@@ -8,15 +8,15 @@ from Mutt but should be able to be used from any email client that
 supports calling external programs.
 
 
-## Installation
+== Installation
 
     gem install bitsa
 
 
-## Configuration 
+== Configuration 
 
 Bitsa is configured through the configuration file
-`~/.bitsa_config.yml`. Use your GMail (or Google Apps) email address
+<tt>~/.bitsa_config.yml</tt>. Use your GMail (or Google Apps) email address
 for the login.
 
     ---
@@ -25,10 +25,10 @@ for the login.
     :cache_file_path: ~/.bitsa_cache.yml
 
 The configuration file is not mandatory, you can pass in your email address
-and password on the command line, see [Usage](#usage).    
+and password on the command line, see [Usage](=usage).    
 
-If you have no configuration file or if `cache_file_path` is not specified in the
-configuration file it will default to `~/.bitsa_cache.yml`
+If you have no configuration file or if <tt>cache_file_path</tt> is not specified in the
+configuration file it will default to <tt>~/.bitsa_cache.yml</tt>
 
 If you store your email password in the configuration file you should
 ensue that it is only readable by you:
@@ -36,7 +36,7 @@ ensue that it is only readable by you:
     chmod 0600 .bitsa_config.yml
 
 
-## <a name="usage">Usage</a>
+== <a name="usage">Usage</a>
 
     Usage: bitsa [global-options] [subcommand] [command-opts]
     
@@ -73,35 +73,35 @@ since it was last updated it will get the latest changes from your
 GMail contacts and copy them to a local cache (~/.bitsa_cache.yml).
 
 You can update your cache with the latest changes at any time by using
-the `update` sub-command:
+the <tt>update</tt> sub-command:
 
     $ bitsa update
 
 If you want to clear your local cache and reload from GMail use the
-`reload` sub-command:
+<tt>reload</tt> sub-command:
 
     $ bitsa reload
 
-## Usage - Mutt
+== Usage - Mutt
 
-To use for address lookup (&lt;CTRL&gt; t) in [Mutt](http://www.mutt.org) put the following in your
-`~/.muttrc` file:
+To use for address lookup (<CTRL> t) in Mutt http://www.mutt.org put the following in your
+<tt>~/.muttrc</tt> file:
 
     set query_command = "bitsa search '%s'"
 
-## Usage - Sup
+== Usage - Sup
 
-To use for address lookup in [Sup](http://sup.rubyforge.org/) put the following in your
-`~/.sup/hooks/extra-contact-addresses.rb` file:
+To use for address lookup in Sup http://sup.rubyforge.org/ put the following in your
+<tt>~/.sup/hooks/extra-contact-addresses.rb</tt> file:
 
     require "yaml"
     ignore, contacts = YAML::load_file( ENV['HOME'] + "/.bitsa_cache.yml" )
 
     contacts.values.flatten.each_slice(2).map do |e,n|
-      "#{e}\t#{n}"
+      "={e}\t={n}"
     end
 
-## Testing
+== Testing
 
 To run the tests after cloning the repository you first need to
 install the required libraries:
@@ -112,9 +112,9 @@ And then you can run the tests:
 
     rake spec
 
-## License:
+== License:
 
-Copyright 2011 Colin Bell.
+Copyright (c) 2011 Colin Bell <mailto:col@baibell.org>
 
 Bitsa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -128,3 +128,5 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-----
