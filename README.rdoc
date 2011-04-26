@@ -3,9 +3,9 @@
 * http://github.com/colbell/bitsa
 
 
-A command line tool to access your GMail/Google Apps contacts. Designed to be used
-from Mutt but should be able to be used from any email client that
-supports calling external programs.
+A command line tool written in Ruby to access your GMail/Google Apps
+contacts. Designed to be used from Mutt but should be able to be used
+from any email client that supports calling external programs.
 
 
 == Installation
@@ -25,7 +25,7 @@ for the login.
     :cache_file_path: ~/.bitsa_cache.yml
 
 The configuration file is not mandatory, you can pass in your email address
-and password on the command line, see [Usage](=usage).    
+and password on the command line, see Usage.
 
 If you have no configuration file or if <tt>cache_file_path</tt> is not specified in the
 configuration file it will default to <tt>~/.bitsa_cache.yml</tt>
@@ -36,7 +36,10 @@ ensue that it is only readable by you:
     chmod 0600 .bitsa_config.yml
 
 
-== <a name="usage">Usage</a>
+== Usage
+
+
+    $ bitsa -h
 
     Usage: bitsa [global-options] [subcommand] [command-opts]
     
@@ -82,23 +85,23 @@ If you want to clear your local cache and reload from GMail use the
 
     $ bitsa reload
 
-== Usage - Mutt
+=== Usage - Mutt
 
-To use for address lookup (<CTRL> t) in Mutt http://www.mutt.org put the following in your
+To use for address lookup in {Mutt}[http://www.mutt.org] put the following in your
 <tt>~/.muttrc</tt> file:
 
     set query_command = "bitsa search '%s'"
 
-== Usage - Sup
+=== Usage - Sup
 
-To use for address lookup in Sup http://sup.rubyforge.org/ put the following in your
+To use for address lookup in {Sup}[http://sup.rubyforge.org/] put the following in your
 <tt>~/.sup/hooks/extra-contact-addresses.rb</tt> file:
 
     require "yaml"
     ignore, contacts = YAML::load_file( ENV['HOME'] + "/.bitsa_cache.yml" )
 
     contacts.values.flatten.each_slice(2).map do |e,n|
-      "={e}\t={n}"
+      "#{e}\t#{n}"
     end
 
 == Testing
@@ -112,9 +115,9 @@ And then you can run the tests:
 
     rake spec
 
-== License:
+== License
 
-Copyright (c) 2011 Colin Bell <mailto:col@baibell.org>
+Copyright (c) 2011 {Colin Bell}[mailto:col@baibell.org]
 
 Bitsa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
