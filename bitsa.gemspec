@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["--main", "README.rdoc"]
 
   s.add_dependency "trollop", "1.15"
-  s.add_dependency "gdata", "1.1.1"
+  s.add_dependency "gdata", "~> 1.1.2"
 
   s.add_development_dependency "bundler", ">= 1.0.0"
   s.add_development_dependency "rspec", "~> 2.5.0"
