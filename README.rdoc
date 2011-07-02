@@ -10,6 +10,9 @@ from any email client that supports calling external programs.
 
 == Installation
 
+You will need Ruby 1.8.7 for bitsa. The gdata gem doesn't seem to work
+with Ruby 1.9
+
     gem install bitsa
 
 

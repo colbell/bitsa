@@ -1,8 +1,14 @@
-=== 0.111
+=== 0.11
+
+* 1 minor enhancement:
+  * Update gdata to 1.1.2
 
 * 2 documentation improvements:
   * Rename History.txt to HISTORY
   * Emphasise that bitsa doesn't work with Ruby 1.9
+
+* 1 other:
+  * Added coverage to sepcs
 
 === 0.10 25 April 2011
 
