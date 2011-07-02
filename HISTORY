@@ -1,0 +1,11 @@
+=== 0.111
+
+* 2 documentation improvements:
+  * Rename History.txt to HISTORY
+  * Emphasise that bitsa doesn't work with Ruby 1.9
+
+=== 0.10 25 April 2011
+
+* 1 major enhancement:
+  * Initial release
+
