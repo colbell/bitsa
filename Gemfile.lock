@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    bitsa (0.10)
-      gdata (= 1.1.1)
+    bitsa (0.11)
+      gdata (~> 1.1.2)
       trollop (= 1.15)
 
 GEM
@@ -10,7 +10,7 @@ GEM
   specs:
     diff-lcs (1.1.2)
     fakeweb (1.2.8)
-    gdata (1.1.1)
+    gdata (1.1.2)
     rcov (0.9.9)
     rspec (2.5.0)
       rspec-core (~> 2.5.0)
@@ -29,7 +29,5 @@ DEPENDENCIES
   bitsa!
   bundler (>= 1.0.0)
   fakeweb (~> 1.2.8)
-  gdata (= 1.1.1)
   rcov
   rspec (~> 2.5.0)
-  trollop (= 1.15)
