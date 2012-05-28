@@ -10,13 +10,12 @@ from any email client that supports calling external programs.
 
 == Installation
 
-You will need Ruby 1.8.7 for bitsa. The gdata gem doesn't seem to work
-with Ruby 1.9
+Since version 0.20 bitsa should work with both Ruby 1.8.7 and 1.9.x.
 
     gem install bitsa
 
 
-== Configuration 
+== Configuration
 
 Bitsa is configured through the configuration file
 <tt>~/.bitsa_config.yml</tt>. Use your GMail (or Google Apps) email address
@@ -45,31 +44,31 @@ ensue that it is only readable by you:
     $ bitsa -h
 
     Usage: bitsa [global-options] [subcommand] [command-opts]
-    
+
     Global options are:
       --config-file, -c <s>:   Configuration file (default: ~/.bitsa_config.yml)
             --login, -l <s>:   Login
          --password, -p <s>:   Password
-    
+
     bitsa sub-commands
        update: get the latest changes from Gmail
        reload: Clear all cached addresses and reload from Gmail
        search: Search for the passed string
-    
+
     Information about this program
               --version, -v:   Print version and exit
                  --help, -h:   Show this message
-    
+
 
 To search for all contacts that contain the string rob:
 
     $ bitsa search rob
-    
-    Rob_Smith@example.com.au	Robert Smith
-    Rob_Smith@example.com  	Robert Smith
-    robert@example.com	        Robert Jones
-    jeff@example.net	Robert Smith
-    bob@robertsystems	Robert Brown
+
+    Rob_Smith@example.com.au    Robert Smith
+    Rob_Smith@example.com       Robert Smith
+    robert@example.com          Robert Jones
+    jeff@example.net            Robert Smith
+    bob@robertsystems           Robert Brown
 
 Contacts are returned as email address, the TAB character and then the
 contacts name.
@@ -120,7 +119,7 @@ And then you can run the tests:
 
 == License
 
-Copyright (c) 2011 {Colin Bell}[mailto:col@baibell.org]
+Copyright (c) 2011-2012 {Colin Bell}[mailto:col@baibell.org]
 
 Bitsa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -133,6 +132,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see [http://www.gnu.org/licenses/].
 
 -----
