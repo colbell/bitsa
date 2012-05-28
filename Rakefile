@@ -1,9 +1,8 @@
-#require 'rubygems'
 require 'bundler'
 Bundler::GemHelper.install_tasks
 
 require 'fileutils'
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'rake/testtask'
 require './lib/bitsa'
 
