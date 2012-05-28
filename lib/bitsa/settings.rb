@@ -1,6 +1,6 @@
 # Application settings.
 #
-# Copyright (C) 2011 Colin Noel Bell.
+# Copyright (C) 2011-2012 Colin Noel Bell.
 #
 # This file is part of Bitsa.
 #
