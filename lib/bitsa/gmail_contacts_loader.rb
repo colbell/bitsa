@@ -51,7 +51,7 @@ module Bitsa #:nodoc:
 
     def load_chunk(client, idx, cache)
       last_modified = nil
-      url = "http://www.google.com/m8/feeds/contacts/#{@user}/thin"
+      url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
       url += "?orderby=lastmodified"
       url += "&showdeleted=true"
       url += "&max-results=#{@@FETCH_SIZE}"
