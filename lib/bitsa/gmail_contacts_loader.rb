@@ -51,12 +51,8 @@ module Bitsa #:nodoc:
 
     def load_chunk(client, idx, cache)
       last_modified = nil
-      url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
-      url += "?orderby=lastmodified"
-      url += "&showdeleted=true"
-      url += "&max-results=#{@@FETCH_SIZE}"
-      url += "&start-index=#{idx}"
-      url += "&updated-min=#{CGI.escape(cache.source_last_modified)}" if cache.source_last_modified
+      url = generate_loader_url(idx, cache)
+
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
         name = entry.elements['title'].text
@@ -75,6 +71,16 @@ module Bitsa #:nodoc:
         last_modified = entry.elements['updated'].text
       end
       feed.elements.count
+    end
+
+    def generate_loader_url(idx, cache)
+      url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
+      url += "?orderby=lastmodified"
+      url += "&showdeleted=true"
+      url += "&max-results=#{@@FETCH_SIZE}"
+      url += "&start-index=#{idx}"
+      url += "&updated-min=#{CGI.escape(cache.source_last_modified)}" if cache.source_last_modified
+      url
     end
   end
 end
