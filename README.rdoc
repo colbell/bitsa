@@ -2,6 +2,7 @@
 
 * http://github.com/colbell/bitsa
 
+{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/colbell/bitsa]
 
 A command line tool written in Ruby to access your GMail/Google Apps
 contacts. Designed to be used from Mutt but should be able to be used
