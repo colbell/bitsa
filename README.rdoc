@@ -1,7 +1,8 @@
 = Bitsa
 
-* http://github.com/colbell/bitsa
+http://github.com/colbell/bitsa
 
+{<img src="https://badge.fury.io/rb/bitsa.png" alt="Gem Version" />}[http://badge.fury.io/rb/bitsa]
 {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/colbell/bitsa]
 
 A command line tool written in Ruby to access your GMail/Google Apps
