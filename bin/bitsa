@@ -32,4 +32,3 @@ args.parse(ARGV)
 
 app = Bitsa::BitsaApp.new
 app.run(args.global_opts, args.cmd, args.search_data)
-
