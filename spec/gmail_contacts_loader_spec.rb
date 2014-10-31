@@ -76,12 +76,12 @@ eos
     end
 
     it "should update cache" do
-      cache = mock('Bitsa::ContactsCache')
+      cache = double('Bitsa::ContactsCache')
       gcl = Bitsa::GmailContactsLoader.new('test', 'pw')
-      cache.should_receive(:update).once
-      cache.should_receive(:source_last_modified=).once
-      cache.should_receive(:source_last_modified)
-      cache.should_receive(:save).once
+      expect(cache).to receive(:update).once
+      expect(cache).to receive(:source_last_modified=).once
+      expect(cache).to receive(:source_last_modified)
+      expect(cache).to receive(:save).once
       gcl.update_cache(cache)
     end
 
