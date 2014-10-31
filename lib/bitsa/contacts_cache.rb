@@ -34,7 +34,8 @@ module Bitsa #:nodoc:
     # Date/Time cache was last updated.
     attr_accessor :source_last_modified
 
-    # Load cache from file system. After <tt>lifespan_days</tt> the cache is considered stale. 
+    # Load cache from file system. After <tt>lifespan_days</tt> the cache
+    # is considered stale.
     def initialize(cache_file_path, lifespan_days)
       @cache_file_path = File.expand_path(cache_file_path || "~/.bitsa_cache.yml")
       @lifespan_days = lifespan_days
@@ -44,8 +45,8 @@ module Bitsa #:nodoc:
     end
 
     def stale?
-      (@source_last_modified.nil? ||
-       (DateTime.parse(@source_last_modified)+@lifespan_days) < DateTime.now)
+      @source_last_modified.nil? ||
+       (DateTime.parse(@source_last_modified) + @lifespan_days) < DateTime.now
     end
 
     # Remove all entries from cache.

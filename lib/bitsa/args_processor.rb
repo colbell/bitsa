@@ -72,7 +72,7 @@ EOS
 
       if cmd == "search"
         @search_data << args.shift unless args.empty?
-      elsif !["search", "update", "reload"].include?(cmd)
+      elsif !ArgsProcessor::SUB_COMMANDS.include?(cmd)
         Trollop::die "unknown subcommand '#{cmd}'"
       end
     end
