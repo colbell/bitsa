@@ -50,7 +50,10 @@ Usage: bitsa [global-options] [subcommand] [command-opts]
 
 Global options are:
 EOS
-        opt :config_file, "Configuration file", :default => "~/.bitsa_config.yml"
+        opt :config_file, "Configuration file", type: String,
+            default: "~/.bitsa_config.yml"
+        opt :auto_check, "Autocheck interval in days. 0 to disable",
+            type: Integer, default: 1
         opt :login, "Login", :type => String
         opt :password, "Password", :type => String
 

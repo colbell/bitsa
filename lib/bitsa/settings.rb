@@ -31,6 +31,9 @@ module Bitsa #:nodoc:
     # Path to file to store cached contact information in.
     attr_reader :cache_file_path
 
+    # Number of days before auto checking
+    attr_reader :auto_check
+
     # Load settings from a hash of data from the configuration file and
     # options passed on the command line.
     #
@@ -40,10 +43,11 @@ module Bitsa #:nodoc:
       @login = config_file_hash.data[:login]
       @password = config_file_hash.data[:password]
       @cache_file_path = config_file_hash.data[:cache_file_path]
-
+      @auto_check = config_file_hash.data[:auto_check]
       @login = options[:login] if options[:login]
       @password = options[:password] if options[:password]
       @cache_file_path = options[:cache_file_path] if options[:cache_file_path]
+      @auto_check = options[:auto_check] if options[:auto_check]
     end
 
   end

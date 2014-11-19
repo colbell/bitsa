@@ -1,10 +1,10 @@
 require "fileutils"
 require "tempfile"
+require "yaml"
 
 require "helper"
 
 require "bitsa/contacts_cache"
-
 
 def create_empty_temp_file
   tmp_file = Tempfile.open("cache")
@@ -29,96 +29,114 @@ def create_cache(last_modified = nil, lifespan_days = 1)
   [Bitsa::ContactsCache.new(tmp_file.path, lifespan_days), tmp_file]
 end
 
-RSpec.shared_examples "an_empty_cache" do |cache|
-  it "should be nil" do
-    expect(cache).not_to be_nil
+RSpec.shared_examples_for "an_empty_cache" do |c|
+  it "should not be nil" do
+    expect(c).not_to be_nil
   end
   it "should have a zero size" do
-    expect(cache.size).to eq(0)
+    expect(c.size).to eq(0)
   end
   it "should not have a last modified date" do
-    expect(cache.source_last_modified).to be_nil
+    expect(c.source_last_modified).to be_nil
   end
   it "should be stale" do
-    expect(cache.stale?).to be true
+    expect(c.stale?).to be_truthy
   end
 end
 
-RSpec.shared_examples "a_full_resultset" do |cache|
-  it "should return all entries" do
-    results = cache.search('')
+RSpec.shared_examples "a_full_resultset" do |results|
+  specify "should return all entries" do
     expect(results.size).to eq(5)
     expect(results.flatten(0).sort).to eq(read_test_data)
   end
 end
 
 describe Bitsa::ContactsCache do
-  context "cache" do
-    it "should build successfully if cache file empty" do
-      cache = Bitsa::ContactsCache.new(create_empty_temp_file.path, 1)
-      RSpec.describe cache do
-        it_behaves_like "an_empty_cache", cache
-      end
-    end
+  context "empty cache file" do
+    cache = Bitsa::ContactsCache.new(create_empty_temp_file.path, 1)
+    it_behaves_like "an_empty_cache", cache
+  end
 
-    it "should build successfully if cache file does not exist" do
-      cache = Bitsa::ContactsCache.new("/tmp/idonotexististhatoky", 1)
-      RSpec.describe cache do
-        it_behaves_like "an_empty_cache", cache
-      end
-    end
+  context "cache file does not exist" do
+    cache = Bitsa::ContactsCache.new("/tmp/idonotexististhatoky", 1)
+    it_behaves_like "an_empty_cache", cache
+  end
 
-    it "should fail with exception if user not authorised to read cache file" do
+  context "user not authorised to read cache file" do
+    specify "should fail with exception" do
       tmp_file = create_empty_temp_file
       FileUtils.chmod(0222, tmp_file.path)
-      lambda { Bitsa::ContactsCache.new(tmp_file.path, 1).should raise_error(Errno::EACCES) }
-    end
-
-    it "should not be stale if last updated today" do
-      expect(create_cache(DateTime.now, 1)[0].stale?).to be false
-    end
-
-    it "should be stale if last updated yesterday and lifespan is 1 day" do
-      expect(create_cache(DateTime.now-1, 1)[0].stale?).to be true
-    end
-
-    it "should not be stale if last updated yesterday and lifespan is 2 days" do
-      expect(create_cache(DateTime.now-1, 2)[0].stale?).to be false
+      lambda {
+        Bitsa::ContactsCache.new(tmp_file.path, 1).
+          should raise_error(Errno::EACCES)
+      }
     end
   end
 
-  context "clearing the cache" do
+  context "last updated today and lifespan is 1 day" do
+    specify "should be stale" do
+      expect(create_cache(DateTime.now, 1)[0].stale?).to be_falsey
+    end
+  end
+
+  context "last updated yesterday and lifespan is 1 day" do
+    specify "should be stale" do
+      expect(create_cache(DateTime.now-1, 1)[0].stale?).to be_truthy
+    end
+  end
+
+  context "last updated yesterday and lifespan is 2 days" do
+    specify "should not be stale" do
+      expect(create_cache(DateTime.now-1, 2)[0].stale?).to be_falsey
+    end
+  end
+
+  context "last updated 3 days ago and lifespan is 0 days" do
+    specify "should not be stale" do
+      expect(create_cache(DateTime.now-3, 0)[0].stale?).to be_falsey
+    end
+  end
+
+  context "last updated 3 days ago and lifespan is -1 days" do
+    specify "should not be stale" do
+      expect(create_cache(DateTime.now-3, -1)[0].stale?).to be_falsey
+    end
+  end
+
+  context "after clearing the cache" do
     before(:each) do
       expect(cache.size).to be >= 1
       expect(cache.empty?).to be false
+      cache.clear!
     end
     let(:cache) { create_cache[0] }
 
-    it "should leave the cache empty" do
-      cache.clear!
+    specify "size should == 0" do
       expect(cache.size).to eq(0)
+    end
+
+    specify "empty? should be true" do
       expect(cache.empty?).to be true
     end
   end
 
   context "searching the test data" do
-    # 4 contacts with 5 email addresses
     let(:cache) { create_cache[0] }
 
-    it "should have read the correct number of contacts" do
-      expect(cache.size).to eq(4)
+    specify "should have read the correct number of contacts" do
+      expect(create_cache[0].size).to eq(4)
     end
 
-    it "should return all entries if blank searched for" do
-      RSpec.describe Bitsa::ContactsCache do
-        it_behaves_like "a_full_resultset", create_cache[0]
+    context "with an empty string" do
+      it_behaves_like "a_full_resultset", create_cache[0].search("")
+    end
+
+    context "with a nil string" do
+      it "should return all entries" do
+        results = cache.search(nil)
+        expect(results.size).to eq(5)
+        expect(results.flatten(0).sort).to eq(read_test_data)
       end
-    end
-
-    it "should return all entries if a nill string searched for" do
-      results = cache.search(nil)
-      expect(results.size).to eq(5)
-      expect(results.flatten(0).sort).to eq(read_test_data)
     end
 
     it "should find correctly when searching by start of email address" do
@@ -304,5 +322,4 @@ describe Bitsa::ContactsCache do
     end
   end
 
-  #private
 end

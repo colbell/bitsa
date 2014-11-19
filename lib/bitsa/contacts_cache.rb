@@ -45,8 +45,9 @@ module Bitsa #:nodoc:
     end
 
     def stale?
-      @source_last_modified.nil? ||
-       (DateTime.parse(@source_last_modified) + @lifespan_days) < DateTime.now
+      @lifespan_days && @lifespan_days > 0 &&
+        (@source_last_modified.nil? ||
+         (DateTime.parse(@source_last_modified) + @lifespan_days) < DateTime.now)
     end
 
     # Remove all entries from cache.

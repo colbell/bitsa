@@ -29,7 +29,7 @@ module Bitsa
     def run(global_opts, cmd, search_data)
       settings = Settings.new
       settings.load(ConfigFile.new(global_opts[:config_file]), global_opts)
-      cache = ContactsCache.new(settings.cache_file_path, 1)
+      cache = ContactsCache.new(settings.cache_file_path, settings.auto_check)
 
       if cmd == "reload"
         cache.clear!
