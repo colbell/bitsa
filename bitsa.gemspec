@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ["README.rdoc", "HISTORY", "COPYING"]
   s.rdoc_options     = ["--main", "README.rdoc"]
 
-  s.add_dependency "trollop", "1.15"
+  s.add_dependency "trollop", "2.0"
 
   # Use the fork until the real one works with Ruby 1.9X
   #s.add_dependency "gdata", "~> 1.1.2"
