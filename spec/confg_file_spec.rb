@@ -1,23 +1,24 @@
+require "tempfile"
 require "helper"
 require "bitsa/config_file"
 
 describe Bitsa::ConfigFile do
-  context "An existing configuration file" do
+  context "An existing configuration file should load from disk" do
     let(:config) { Bitsa::ConfigFile.new("spec/data/config.yml")}
-     it "should read values from config file" do
-       expect(config.data[:login]).to eq("test@gmail.com")
-       expect(config.data[:password]).to eq("myPassword")
+     context :login do
+       specify { expect(config.data[:login]).to eq("test@gmail.com") }
+     end
+     context :password do
+       specify { expect(config.data[:password]).to eq("myPassword") }
      end
   end
 
-  context "An non-existent configuration file" do
+  context "data from a non-existent configuration files" do
     let(:config) { Bitsa::ConfigFile.new("/tmp/i-dont-exist") }
-    it "should have no values" do
-      expect(config.data).to eq({})
-    end
+    specify { expect(config.data).to eq({}) }
   end
 
-  context "An existing configuration file that I have no rights to" do
+  context "that I have no rights to" do
     let(:tmp_file) {
       tmp_file = Tempfile.open("cache")
       FileUtils.cp("spec/data/config.yml", tmp_file.path)
@@ -25,8 +26,8 @@ describe Bitsa::ConfigFile do
       tmp_file
     }
 
-    it "should throw an exception when I try to read from it" do
-      expect { Bitsa::ConfigFile.new(tmp_file.path) }.to raise_error(Errno::EACCES)
+    context "reading" do
+      specify { expect { Bitsa::ConfigFile.new(tmp_file.path) }.to raise_error(Errno::EACCES) }
     end
   end
 

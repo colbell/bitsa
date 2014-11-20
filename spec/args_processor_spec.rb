@@ -1,12 +1,18 @@
 require "helper"
 require "bitsa/args_processor"
 
-RSpec.shared_examples "a_valid_set_of_args" do |ap|
-  it "should be a valid set of args" do
-    expect(ap.global_opts[:config_file]).to eq("somefile")
-    expect(ap.global_opts[:login]).to eq("someone")
-    expect(ap.global_opts[:password]).to eq("mypassword")
-    expect(ap.global_opts[:auto_check]).to eq(1)
+RSpec.shared_examples "a valid set of args" do |ap|
+  context :config_file do
+    specify { expect(ap.global_opts[:config_file]).to eq("somefile") }
+  end
+  context :login do
+    specify { expect(ap.global_opts[:login]).to eq("someone") }
+  end
+  context :password do
+    specify { expect(ap.global_opts[:password]).to eq("mypassword") }
+  end
+  context :autocheck do
+    specify { expect(ap.global_opts[:auto_check]).to eq(1) }
   end
 end
 
@@ -30,14 +36,14 @@ describe Bitsa::ArgsProcessor do
     let(:ap) { Bitsa::ArgsProcessor.new }
 
     it "should recognize the 'update' command" do
-      ap.parse(["update"])
+      expect { ap.parse(["update"]) }.not_to raise_error
     end
 
     it "should raise SystemExit if an invalid command passed" do
       expect { ap.parse(["unknown"]) }.to raise_error(SystemExit)
     end
 
-    it "should throw raise SystemExit if nothing passed" do
+    it "should raise SystemExit if nothing passed" do
       expect { ap.parse([]) }.to raise_error(SystemExit)
     end
 
@@ -52,17 +58,13 @@ describe Bitsa::ArgsProcessor do
     end
   end
 
-  it "should recognise valid long arguments" do
-    args = valid_long_args
-
+  context "passing valid long arguments" do
     ap = Bitsa::ArgsProcessor.new
-    ap.parse(args)
-    RSpec.describe @ap do
-      it_behaves_like "a_valid_set_of_args", ap
-    end
+    ap.parse(valid_long_args)
+    it_behaves_like "a valid set of args", ap
   end
 
-  it "should recognise valid short arguments" do
+  context "passing valid short arguments" do
     args = []
     args << "-c"
     args << "somefile"
@@ -76,40 +78,50 @@ describe Bitsa::ArgsProcessor do
 
     ap = Bitsa::ArgsProcessor.new
     ap.parse(args)
-    RSpec.describe @ap do
-      it_behaves_like "a_valid_set_of_args", ap
-    end
+    it_behaves_like "a valid set of args", ap
   end
 
   context "Alphabetic --auto-check argument passed" do
     let(:args) { valid_long_args.map { |x| x == "1" ? "a" : x } }
-    it "should raise SystemError" do
+
+    specify {
       expect { Bitsa::ArgsProcessor.new.parse(args) }.to raise_error(SystemExit)
-    end
+    }
   end
 
   context "Zero --auto-check argument passed" do
-    let(:args) { valid_long_args.map { |x| x == "1" ? "0" : x } }
     let(:ap) { Bitsa::ArgsProcessor.new }
-    it "should pass the auto-check argument to the globals" do
-      ap.parse(args)
-      expect(ap.global_opts[:auto_check]).to eq(0)
+    before(:each) { ap.parse(valid_long_args.map { |x| x == "1" ? "0" : x }) }
+
+    context "auto-check" do
+      specify { expect(ap.global_opts[:auto_check]).to eq(0) }
     end
   end
 
   context "Not passing --auto-check" do
-    before(:each) { ap.parse ['update']}
     let(:ap) { Bitsa::ArgsProcessor.new }
-    specify "should default to 1" do
-      expect(ap.global_opts[:auto_check]).to eq(1)
+    before(:each) { ap.parse ['update']}
+
+    context "auto-check" do
+      specify { expect(ap.global_opts[:auto_check]).to eq(1) }
     end
   end
 
   context "Not passing --config-file" do
     before(:each) { ap.parse ['update']}
     let(:ap) { Bitsa::ArgsProcessor.new }
-    specify "should default to '~/.bitsa_config.yml'" do
-      expect(ap.global_opts[:config_file]).to eq("~/.bitsa_config.yml")
+
+    context "config_file" do
+      specify { expect(ap.global_opts[:config_file]).to eq("~/.bitsa_config.yml") }
+    end
+  end
+
+  context "passing --search with some search data" do
+    before(:each) { ap.parse ['search', 'something']}
+    let(:ap) { Bitsa::ArgsProcessor.new }
+
+    context "search_data" do
+      specify { expect(ap.search_data).to eq "something" }
     end
   end
 

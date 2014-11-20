@@ -61,10 +61,9 @@ module Bitsa #:nodoc:
     end
 
     def search(qry)
-      qry ||= ""
-      rg = Regexp.new(qry, Regexp::IGNORECASE)
+      rg = Regexp.new(qry || "", Regexp::IGNORECASE)
 
-      # Flattens.each_slices to an array with [email1, name1, email2, name2] etc.
+      # Flatten to an array with [email1, name1, email2, name2] etc.
       results = @addresses.values.flatten.each_slice(2).find_all do |e, n|
         e.match(rg) || n.match(rg)
       end
