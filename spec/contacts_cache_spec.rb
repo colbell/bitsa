@@ -289,35 +289,37 @@ describe Bitsa::ContactsCache do
     end
   end
 
-  context "saving the test data" do
+  context "saving" do
     let(:data) { create_cache }
     let(:cache) { data[0] }
     let(:cache_file) { data[1] }
 
-    it "should save changes to existing contacts" do
-      id = "http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a549c176e"
-      cache.update(id, "The Changed Name", ["change1@somewhere.org"])
-      cache.save
-      new_cache = Bitsa::ContactsCache.new(cache_file.path, 1)
-      expected = [["change1@somewhere.org", "The Changed Name"]]
-      expect(new_cache.get(id)).to match_array expected
+    context "changes to existing contacts" do
+      specify {
+        id = "http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a549c176e"
+        cache.update(id, "The Changed Name", ["change1@somewhere.org"])
+        cache.save
+        new_cache = Bitsa::ContactsCache.new(cache_file.path, 1)
+        expected = [["change1@somewhere.org", "The Changed Name"]]
+        expect(new_cache.get(id)).to match_array expected
+      }
     end
 
-    it "should save newly added entries" do
-      id = "NONEXISTENT"
-      cache.update(id, "The Changed Name", ["change1@somewhere.org"])
-      cache.save
-      new_cache = Bitsa::ContactsCache.new(cache_file.path, 1)
-      expected = [["change1@somewhere.org", "The Changed Name"]]
-      expect(new_cache.get(id)).to match_array expected
+    context "adding new entries" do
+      specify {
+        id = "NONEXISTENT"
+        cache.update(id, "The Changed Name", ["change1@somewhere.org"])
+        cache.save
+        new_cache = Bitsa::ContactsCache.new(cache_file.path, 1)
+        expected = [["change1@somewhere.org", "The Changed Name"]]
+        expect(new_cache.get(id)).to match_array expected
+      }
     end
 
     context "to a file that I have no write rights to" do
       before(:each) { FileUtils.chmod(0444, cache_file.path) }
 
-      it "should throw an exception when I try to write to it" do
-        expect { cache.save }.to raise_error(Errno::EACCES)
-      end
+      specify { expect { cache.save }.to raise_error(Errno::EACCES) }
 
     end
   end
