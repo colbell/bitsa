@@ -44,10 +44,13 @@ module Bitsa #:nodoc:
       @password = config_file_hash.data[:password]
       @cache_file_path = config_file_hash.data[:cache_file_path]
       @auto_check = config_file_hash.data[:auto_check]
+
       @login = options[:login] if options[:login]
       @password = options[:password] if options[:password]
       @cache_file_path = options[:cache_file_path] if options[:cache_file_path]
       @auto_check = options[:auto_check] if options[:auto_check]
+
+      @auto_check ||= 1
     end
 
   end
