@@ -38,8 +38,8 @@ RSpec.shared_examples_for "an empty cache" do |c|
   context "last modified date" do
     specify { expect(c.source_last_modified).to be_nil }
   end
-  specify :stale do
-    expect(c.stale?).to be_truthy
+  context :stale do
+    specify { expect(c.stale?).to be_truthy }
   end
 end
 
@@ -200,7 +200,9 @@ describe Bitsa::ContactsCache do
     end
 
     context "search with no results" do
-      specify {expect(create_cache[0].search('nothing is here').size).to eq(0)}
+      context :size do
+        specify {expect(create_cache[0].search('nothing is here').size).to eq(0)}
+      end
     end
 
     context "search on one contact with two email addresses" do
@@ -225,7 +227,7 @@ describe Bitsa::ContactsCache do
       specify {expect(create_cache[0].get(id)).to match_array expected}
     end
 
-    context "should return nil if finding by a non-existent ID" do
+    context "find by a non-existent ID" do
       let(:id) {"http://www.google.com/m8/feeds/contacts/person%40example.org/base/4783783783"}
 
       specify {expect(create_cache[0].get(id)).to be_nil}
@@ -243,7 +245,7 @@ describe Bitsa::ContactsCache do
     end
   end
 
-  context "updating with two email addresses correctly" do
+  context "updating with two email addresses" do
     let(:cache) { create_cache[0] }
     let(:id) {"http://www.google.com/m8/feeds/contacts/person%40example.org/base/637e301a549c176e"}
 
@@ -283,9 +285,11 @@ describe Bitsa::ContactsCache do
       expect(cache.delete(id)).to match_array [["Joan.bloggs@somewhere.com.au", "Joan Bloggshere"]]
     end
 
-    specify "should no longer contain the deleted entry" do
-      cache.delete(id)
-      expect(cache.get(id)).to be_nil
+    context "the cache" do
+      specify "should no longer contain the deleted entry" do
+        cache.delete(id)
+        expect(cache.get(id)).to be_nil
+      end
     end
   end
 

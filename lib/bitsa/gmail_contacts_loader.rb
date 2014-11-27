@@ -24,13 +24,13 @@ module Bitsa #:nodoc:
   # Loads Contacts from Gmail into a <tt>ContactsCache</tt> object.
   class GmailContactsLoader
 
-    # Number of contacts to retrieve as a single chunk.
-    @@FETCH_SIZE = 25
-
-    # Ctor specifying the Gmail (or Google Apps) user name and password.
-    def initialize(user, pw) #, lifespan_days)
+    # Ctor specifying the Gmail (or Google Apps) user name and
+    # password and optionally the number of records to retrieve in
+    # each chunk.
+    def initialize(user, pw, fetch_size = 25)
       @user = user
       @pw = pw
+      @fetch_size = fetch_size
     end
 
     # Refresh the passsed <tt>ContactsCache</tt> with the latest contact
@@ -40,8 +40,8 @@ module Bitsa #:nodoc:
       client.clientlogin(@user, @pw)
 
       idx = 1
-      until load_chunk(client, idx, cache) < @@FETCH_SIZE
-        idx += @@FETCH_SIZE
+      until load_chunk(client, idx, cache) < @fetch_size
+        idx += @fetch_size
       end
       cache.source_last_modified = DateTime.now.to_s
       cache.save
@@ -77,7 +77,7 @@ module Bitsa #:nodoc:
       url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
       url += "?orderby=lastmodified"
       url += "&showdeleted=true"
-      url += "&max-results=#{@@FETCH_SIZE}"
+      url += "&max-results=#{@fetch_size}"
       url += "&start-index=#{idx}"
       url += "&updated-min=#{CGI.escape(cache.source_last_modified)}" if cache.source_last_modified
       url

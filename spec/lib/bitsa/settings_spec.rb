@@ -3,8 +3,6 @@ require "bitsa/config_file"
 require "bitsa/settings"
 
 describe Bitsa::Settings do
-  context "An existing Settings object" do
-
     it "should read a value from config file if it wasn't passed in options" do
      settings = load_settings({})
      expect(settings.login).to eq "test@gmail.com"
@@ -17,11 +15,9 @@ describe Bitsa::Settings do
     end
 
     it "should still use values in config file when other options passed" do
-       settings = load_settings({:login => "somebody@example.com"})
-       expect(settings.password).to eq "myPassword"
-     end
-
-  end
+      settings = load_settings({:login => "somebody@example.com"})
+      expect(settings.password).to eq "myPassword"
+    end
 
   private
 
