@@ -52,7 +52,7 @@ Global options are:
 EOS
         opt :config_file, "Configuration file", type: String,
             default: "~/.bitsa_config.yml"
-        opt :auto_check, "Autocheck interval in days. 0 to disable, default 1",
+        opt :auto_check, "Autocheck interval in days. 0 to disable (default: 1)",
             type: Integer
         opt :login, "Login", :type => String
         opt :password, "Password", :type => String

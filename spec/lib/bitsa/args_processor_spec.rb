@@ -103,7 +103,7 @@ describe Bitsa::ArgsProcessor do
     before(:each) { ap.parse ['update']}
 
     context "auto-check" do
-      specify { expect(ap.global_opts[:auto_check]).to eq(1) }
+      specify { expect(ap.global_opts[:auto_check]).to be_nil }
     end
   end
 

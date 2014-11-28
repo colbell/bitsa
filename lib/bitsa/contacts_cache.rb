@@ -37,7 +37,7 @@ module Bitsa #:nodoc:
     # Load cache from file system. After <tt>lifespan_days</tt> the cache
     # is considered stale.
     def initialize(cache_file_path, lifespan_days)
-      @cache_file_path = File.expand_path(cache_file_path || "~/.bitsa_cache.yml")
+      @cache_file_path = File.expand_path(cache_file_path) # || "~/.bitsa_cache.yml")
       @lifespan_days = lifespan_days
       @addresses = {}
       @source_source_last_modified = nil
