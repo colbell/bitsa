@@ -27,7 +27,7 @@ module Bitsa #:nodoc:
   # is used to handle the parsing.
   class ArgsProcessor
     # Valid commands.
-    SUB_COMMANDS = %w(update reload search)
+    SUB_COMMANDS = %w(update reload search skel)
 
     # Global options passed on the command line.
     attr_reader :global_opts
@@ -65,6 +65,7 @@ bitsa subcommands
    update: get the latest changes from Gmail
    reload: Clear all cached addresses and reload from Gmail
    search: Search for the passed string
+   skel:   Write a skeleton configuration file to standard output
 
 Information about this program
 EOS

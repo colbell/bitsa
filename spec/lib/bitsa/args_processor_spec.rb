@@ -32,12 +32,7 @@ end
 
 
 describe Bitsa::ArgsProcessor do
-  context "handling commands" do
     let(:ap) { Bitsa::ArgsProcessor.new }
-
-    it "should recognize the 'update' command" do
-      expect { ap.parse(["update"]) }.not_to raise_error
-    end
 
     it "should raise SystemExit if an invalid command passed" do
       expect { ap.parse(["unknown"]) }.to raise_error(SystemExit)
@@ -47,16 +42,16 @@ describe Bitsa::ArgsProcessor do
       expect { ap.parse([]) }.to raise_error(SystemExit)
     end
 
-    context "and being passed valid commands" do
-      [["reload"], ["search", "data"], ["update"]].each do |ar|
-        cmd = ar[0]
-        it "should recognise the '#{cmd}' command" do
-          ap.parse(ar)
-          expect(ap.cmd).to eq(cmd)
+    context "passed" do
+      [["reload"], ['skel'], ["search", "data"], ["update"]].each do |cmd, data|
+        context "#{cmd} command" do
+          before { ap.parse([cmd, data]) }
+          specify {
+            expect(ap.cmd).to eq(cmd)
+          }
         end
       end
     end
-  end
 
   context "passing valid long arguments" do
     ap = Bitsa::ArgsProcessor.new

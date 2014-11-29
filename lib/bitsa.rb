@@ -31,18 +31,28 @@ module Bitsa
       settings.load(ConfigFile.new(global_opts[:config_file]), global_opts)
       cache = ContactsCache.new(settings.cache_file_path, settings.auto_check)
 
-      if cmd == "reload"
-        cache.clear!
-      end
+      if cmd == "skel"
+        puts <<-EOS
+---
+:login: myself@gmail.com
+:password: mypassword
+:cache_file_path: ~/.bitsa_cache.yml
+:auto_check: 1
+EOS
+      else
+        if cmd == "reload"
+          cache.clear!
+        end
 
-      if ["reload", "update"].include?(cmd) || cache.stale?
-        loader = GmailContactsLoader.new(settings.login, settings.password)
-        loader.update_cache(cache)
-      end
+        if ["reload", "update"].include?(cmd) || cache.stale?
+          loader = GmailContactsLoader.new(settings.login, settings.password)
+          loader.update_cache(cache)
+        end
 
-      if cmd == "search"
-        puts "" # Force first entry to be displayed in mutt
-        cache.search(search_data).each {|k,v| puts "#{k}\t#{v}"}
+        if cmd == "search"
+          puts "" # Force first entry to be displayed in mutt
+          cache.search(search_data).each {|k,v| puts "#{k}\t#{v}"}
+        end
       end
     end
   end

@@ -51,6 +51,7 @@ module Bitsa #:nodoc:
       @auto_check = options[:auto_check] if options[:auto_check]
 
       @auto_check ||= 1
+      @cache_file_path ||= "~/.bitsa_cache.yml"
     end
 
   end
