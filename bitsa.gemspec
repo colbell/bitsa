@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "bitsa"
   s.version     = Bitsa::VERSION
   s.platform    = Gem::Platform::RUBY
+  s.licenses    = ['GPL-3.0+']
   s.authors     = ["Colin Noel Bell"]
   s.email       = ["col@baibell.org"]
   s.homepage    = "https://github.com/colbell/bitsa"
