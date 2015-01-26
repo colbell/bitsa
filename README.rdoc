@@ -56,35 +56,33 @@ ensue that it is only readable by you:
 
     Global options are:
       --config-file, -c <s>:   Configuration file (default: ~/.bitsa_config.yml)
+       --auto-check, -a <i>:   Autocheck interval in days. 0 to disable (default: 1)
             --login, -l <s>:   Login
          --password, -p <s>:   Password
 
-    bitsa sub-commands
+    bitsa subcommands
        update: get the latest changes from Gmail
        reload: Clear all cached addresses and reload from Gmail
        search: Search for the passed string
+       skel:   Write a skeleton configuration file to standard output
 
     Information about this program
               --version, -v:   Print version and exit
                  --help, -h:   Show this message
 
 
-To search for all contacts that contain the string rob:
+    To search for all contacts that contain the string rob:
 
-    $ bitsa search rob
+        $ bitsa search rob
 
-    Rob_Smith@example.com.au    Robert Smith
-    Rob_Smith@example.com       Robert Smith
-    robert@example.com          Robert Jones
-    jeff@example.net            Robert Smith
-    bob@robertsystems           Robert Brown
+        Rob_Smith@example.com.au    Robert Smith
+        Rob_Smith@example.com       Robert Smith
+        robert@example.com          Robert Jones
+        jeff@example.net            Robert Smith
+        bob@robertsystems           Robert Brown
 
 Contacts are returned as email address, the TAB character and then the
 contacts name.
-
-The first time you run Bitsa and then if it has been more than a day
-since it was last updated it will get the latest changes from your
-GMail contacts and copy them to a local cache (~/.bitsa_cache.yml).
 
 You can update your cache with the latest changes at any time by using
 the <tt>update</tt> sub-command:
