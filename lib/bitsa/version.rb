@@ -17,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Bitsa version.
 module Bitsa  #:nodoc:
-  VERSION = "0.30"
+  VERSION = '0.30'
 end

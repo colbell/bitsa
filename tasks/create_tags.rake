@@ -1,7 +1,6 @@
-desc "Create TAGS file"
+desc 'Create TAGS file'
 task(:tags) do
-  puts "generating ctags..."
+  puts 'generating ctags...'
   `ctags-exuberant -e -f TAGS --tag-relative -R lib spec`
-  puts "ctags generation completed."
+  puts 'ctags generation completed.'
 end
-

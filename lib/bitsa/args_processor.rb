@@ -17,12 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "trollop"
+require 'trollop'
 
-require "bitsa/version"
+require 'bitsa/version'
 
 module Bitsa #:nodoc:
-
   # Arguments passed on the command line. Trollop http://trollop.rubyforge.org
   # is used to handle the parsing.
   class ArgsProcessor
@@ -50,12 +49,13 @@ Usage: bitsa [global-options] [subcommand] [command-opts]
 
 Global options are:
 EOS
-        opt :config_file, "Configuration file", type: String,
-            default: "~/.bitsa_config.yml"
-        opt :auto_check, "Autocheck interval in days. 0 to disable (default: 1)",
+        opt :config_file, 'Configuration file',
+            type: String, default: '~/.bitsa_config.yml'
+        opt :auto_check,
+            'Autocheck interval in days. 0 to disable (default: 1)',
             type: Integer
-        opt :login, "Login", :type => String
-        opt :password, "Password", :type => String
+        opt :login, 'Login', type: String
+        opt :password, 'Password', type: String
 
         stop_on SUB_COMMANDS
 
@@ -74,10 +74,10 @@ EOS
       @cmd = args.shift || ''
       @search_data = ''
 
-      if cmd == "search"
+      if cmd == 'search'
         @search_data << args.shift unless args.empty?
       elsif !ArgsProcessor::SUB_COMMANDS.include?(cmd)
-        Trollop::die "unknown subcommand '#{cmd}'"
+        Trollop.die "unknown subcommand '#{cmd}'"
       end
     end
   end

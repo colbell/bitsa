@@ -2,20 +2,20 @@ require 'helper'
 
 require 'fakeweb'
 
-require "bitsa/contacts_cache"
-require "bitsa/gmail_contacts_loader"
+require 'bitsa/contacts_cache'
+require 'bitsa/gmail_contacts_loader'
 
 describe Bitsa::GmailContactsLoader do
-  context "Bitsa::GmailContactsLoader" do
+  context 'Bitsa::GmailContactsLoader' do
     before(:each) do
       FakeWeb.allow_net_connect = false
 
       # Start session.
-      FakeWeb.register_uri(:post, "https://www.google.com/accounts/ClientLogin",
-                           :body => "SID=DQAAAGgA...7Zg8CTN\nLSID=DQAAAGsA...lk8BBbG\nAuth=DQAAAGgA...dk3fA5N")
+      FakeWeb.register_uri(:post, 'https://www.google.com/accounts/ClientLogin',
+                           :body => 'SID=DQAAAGgA...7Zg8CTN\nLSID=DQAAAGsA...lk8BBbG\nAuth=DQAAAGgA...dk3fA5N')
 
       # First chunk of contacts
-      FakeWeb.register_uri(:get, "https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=1",
+      FakeWeb.register_uri(:get, 'https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=1',
                            :body => <<eos
 <feed gd:etag='W/&quot;AkANQXo7eCp7ImA9WxFTGUo.&quot;' xmlns:gContact='http://schemas.google.com/contact/2008' xmlns:gd='http://schemas.google.com/g/2005' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns='http://www.w3.org/2005/Atom'>
   <id>
@@ -141,7 +141,7 @@ eos
   </entry>
 </feed>
 eos
-                          )
+)
 
       # Third chunk - empty
       FakeWeb.register_uri(:get, "https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=31",
@@ -188,7 +188,7 @@ eos
 
     end
 
-    it "should update cache" do
+    it 'should update cache' do
       cache = double('Bitsa::ContactsCache')
       gcl = Bitsa::GmailContactsLoader.new('test', 'pw', 15)
       expect(cache).to receive(:update).once
@@ -198,6 +198,5 @@ eos
       expect(cache).to receive(:delete).once
       gcl.update_cache(cache)
     end
-
   end
 end

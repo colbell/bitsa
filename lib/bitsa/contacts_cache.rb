@@ -17,10 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "forwardable"
+require 'forwardable'
 
 module Bitsa #:nodoc:
-
   # Cache of Contacts.
   class ContactsCache
     extend Forwardable
@@ -37,7 +36,7 @@ module Bitsa #:nodoc:
     # Load cache from file system. After <tt>lifespan_days</tt> the cache
     # is considered stale.
     def initialize(cache_file_path, lifespan_days)
-      @cache_file_path = File.expand_path(cache_file_path) # || "~/.bitsa_cache.yml")
+      @cache_file_path = File.expand_path(cache_file_path)
       @lifespan_days = lifespan_days
       @addresses = {}
       @source_source_last_modified = nil
@@ -61,7 +60,7 @@ module Bitsa #:nodoc:
     end
 
     def search(qry)
-      rg = Regexp.new(qry || "", Regexp::IGNORECASE)
+      rg = Regexp.new(qry || '', Regexp::IGNORECASE)
 
       # Flatten to an array with [email1, name1, email2, name2] etc.
       results = @addresses.values.flatten.each_slice(2).find_all do |e, n|
@@ -69,11 +68,11 @@ module Bitsa #:nodoc:
       end
 
       # Sort by case-insensitive email address
-      results.sort{|a,b| a[0].downcase <=> b[0].downcase}
+      results.sort { |a, b| a[0].downcase <=> b[0].downcase }
     end
 
     def update(id, name, addresses)
-      @addresses[id] = addresses.map { | a | [a, name]}
+      @addresses[id] = addresses.map { |a| [a, name] }
     end
 
     def delete(id)
@@ -81,21 +80,19 @@ module Bitsa #:nodoc:
     end
 
     def save
-      File.open(@cache_file_path, "w") do |f|
-        f.write(YAML::dump([@source_last_modified, @addresses]))
+      File.open(@cache_file_path, 'w') do |f|
+        f.write(YAML.dump([@source_last_modified, @addresses]))
       end
     end
 
     private
 
     def load_from_file_system
-      if File.exist?(@cache_file_path)
-        @source_last_modified, @addresses = YAML::load_file(@cache_file_path)
-        unless @addresses
-          @addresses = {}
-          @source_last_modified = nil
-        end
-      end
+      return unless File.exist?(@cache_file_path)
+      @source_last_modified, @addresses = YAML.load_file(@cache_file_path)
+      return if @addresses
+      @addresses = {}
+      @source_last_modified = nil
     end
   end
 end

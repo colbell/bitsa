@@ -24,8 +24,8 @@
 # rescue LoadError
 # end
 
-require "bitsa"
-require "bitsa/args_processor"
+require 'bitsa'
+require 'bitsa/args_processor'
 
 args = Bitsa::ArgsProcessor.new
 args.parse(ARGV)

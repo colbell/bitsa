@@ -17,13 +17,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require "gdata"
+require 'gdata'
 
 module Bitsa #:nodoc:
-
   # Loads Contacts from Gmail into a <tt>ContactsCache</tt> object.
   class GmailContactsLoader
-
     # Ctor specifying the Gmail (or Google Apps) user name and
     # password and optionally the number of records to retrieve in
     # each chunk.
@@ -40,9 +38,7 @@ module Bitsa #:nodoc:
       client.clientlogin(@user, @pw)
 
       idx = 1
-      until load_chunk(client, idx, cache) < @fetch_size
-        idx += @fetch_size
-      end
+      idx += @fetch_size until load_chunk(client, idx, cache) < @fetch_size
       cache.source_last_modified = DateTime.now.to_s
       cache.save
     end
@@ -56,14 +52,14 @@ module Bitsa #:nodoc:
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
         name = entry.elements['title'].text
-        name ||= ""
+        name ||= ''
         gmail_id = entry.elements['id'].text
         deleted = entry.elements['gd:deleted'] ? true : false
         if deleted
           cache.delete(gmail_id)
         else
           addresses = []
-          entry.each_element('gd:email') do | addr |
+          entry.each_element('gd:email') do |addr|
             addresses << addr.attributes['address']
           end
           cache.update(gmail_id, name, addresses)
@@ -75,8 +71,8 @@ module Bitsa #:nodoc:
 
     def generate_loader_url(idx, cache)
       url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
-      url += "?orderby=lastmodified"
-      url += "&showdeleted=true"
+      url += '?orderby=lastmodified'
+      url += '&showdeleted=true'
       url += "&max-results=#{@fetch_size}"
       url += "&start-index=#{idx}"
       url += "&updated-min=#{CGI.escape(cache.source_last_modified)}" if cache.source_last_modified

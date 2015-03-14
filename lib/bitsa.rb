@@ -15,23 +15,21 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require "bitsa/config_file"
-require "bitsa/contacts_cache"
-require "bitsa/gmail_contacts_loader"
-require "bitsa/settings"
+require 'bitsa/config_file'
+require 'bitsa/contacts_cache'
+require 'bitsa/gmail_contacts_loader'
+require 'bitsa/settings'
 
 module Bitsa
-
   # Application entry point.
   class BitsaApp
-
     # Run application.
     def run(global_opts, cmd, search_data)
       settings = Settings.new
       settings.load(ConfigFile.new(global_opts[:config_file]), global_opts)
       cache = ContactsCache.new(settings.cache_file_path, settings.auto_check)
 
-      if cmd == "skel"
+      if cmd == 'skel'
         puts <<-EOS
 ---
 :login: myself@gmail.com
@@ -40,21 +38,18 @@ module Bitsa
 :auto_check: 1
 EOS
       else
-        if cmd == "reload"
-          cache.clear!
-        end
+        cache.clear! if cmd == 'reload'
 
-        if ["reload", "update"].include?(cmd) || cache.stale?
+        if %w(reload, update).include?(cmd) || cache.stale?
           loader = GmailContactsLoader.new(settings.login, settings.password)
           loader.update_cache(cache)
         end
 
-        if cmd == "search"
-          puts "" # Force first entry to be displayed in mutt
-          cache.search(search_data).each {|k,v| puts "#{k}\t#{v}"}
+        if cmd == 'search'
+          puts '' # Force first entry to be displayed in mutt
+          cache.search(search_data).each { |k, v| puts "#{k}\t#{v}" }
         end
       end
     end
   end
-
 end

@@ -18,10 +18,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 module Bitsa #:nodoc:
-
   # Application settings.
   class Settings
-
     # Login to use to connect to GMail.
     attr_reader :login
 
@@ -51,8 +49,7 @@ module Bitsa #:nodoc:
       @auto_check = options[:auto_check] if options[:auto_check]
 
       @auto_check ||= 1
-      @cache_file_path ||= "~/.bitsa_cache.yml"
+      @cache_file_path ||= '~/.bitsa_cache.yml'
     end
-
   end
 end
