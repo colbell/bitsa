@@ -304,7 +304,7 @@ describe Bitsa::ContactsCache do
 
   context 'deleting an existing entry' do
     let(:cache) { create_cache[0] }
-    let(:id) { URL_START + "person%40example.org/base/637e301a549c176e" }
+    let(:id) { URL_START + 'person%40example.org/base/637e301a549c176e' }
 
     specify { expect { cache.delete(id) }.to change(cache, :size).by(-1) }
 

@@ -11,7 +11,10 @@ Gem::Specification.new do |s|
   s.email       = ['col@baibell.org']
   s.homepage    = 'https://github.com/colbell/bitsa'
   s.summary     = 'Command line GMail Contacts lookup tool.'
-  s.description = 'Allows you to lookup GMail contacts and cache contacts locally from the command line.'
+  s.description = <<eos
+Allows you to lookup GMail contacts and cache contacts locally
+from the command line.
+eos
   s.required_rubygems_version = '>= 1.3.6'
   s.required_ruby_version = '>= 1.9.0'
 

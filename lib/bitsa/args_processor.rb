@@ -42,7 +42,23 @@ module Bitsa #:nodoc:
     #
     # It also handles showing the Help and Version information.
     def parse(args)
-      @global_opts = Trollop::options(args) do
+      @global_opts = create_global_args(args)
+
+      @cmd = args.shift || ''
+      @search_data = ''
+
+      if cmd == 'search'
+        @search_data << args.shift unless args.empty?
+      elsif !ArgsProcessor::SUB_COMMANDS.include?(cmd)
+        Trollop.die "unknown subcommand '#{cmd}'"
+      end
+    end
+
+    private
+
+    # rubocop:disable Metrics/MethodLength
+    def create_global_args(args)
+      Trollop.options(args) do
         version "bitsa v#{Bitsa::VERSION}"
         banner <<EOS
 Usage: bitsa [global-options] [subcommand] [command-opts]
@@ -70,15 +86,7 @@ bitsa subcommands
 Information about this program
 EOS
       end
-
-      @cmd = args.shift || ''
-      @search_data = ''
-
-      if cmd == 'search'
-        @search_data << args.shift unless args.empty?
-      elsif !ArgsProcessor::SUB_COMMANDS.include?(cmd)
-        Trollop.die "unknown subcommand '#{cmd}'"
-      end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

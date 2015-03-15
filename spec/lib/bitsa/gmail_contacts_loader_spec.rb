@@ -5,6 +5,8 @@ require 'fakeweb'
 require 'bitsa/contacts_cache'
 require 'bitsa/gmail_contacts_loader'
 
+# rubocop:disable Metrics/LineLength
+
 describe Bitsa::GmailContactsLoader do
   context 'Bitsa::GmailContactsLoader' do
     before(:each) do
@@ -12,11 +14,11 @@ describe Bitsa::GmailContactsLoader do
 
       # Start session.
       FakeWeb.register_uri(:post, 'https://www.google.com/accounts/ClientLogin',
-                           :body => 'SID=DQAAAGgA...7Zg8CTN\nLSID=DQAAAGsA...lk8BBbG\nAuth=DQAAAGgA...dk3fA5N')
+                           body: 'SID=DQAAAGgA...7Zg8CTN\nLSID=DQAAAGsA...lk8BBbG\nAuth=DQAAAGgA...dk3fA5N')
 
       # First chunk of contacts
       FakeWeb.register_uri(:get, 'https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=1',
-                           :body => <<eos
+                           body: <<eos
 <feed gd:etag='W/&quot;AkANQXo7eCp7ImA9WxFTGUo.&quot;' xmlns:gContact='http://schemas.google.com/contact/2008' xmlns:gd='http://schemas.google.com/g/2005' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns='http://www.w3.org/2005/Atom'>
   <id>
     somebody@example.com
@@ -79,8 +81,8 @@ eos
                           )
 
       # Second chunk of contacts
-      FakeWeb.register_uri(:get, "https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=16",
-                           :body => <<eos
+      FakeWeb.register_uri(:get, 'https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=16',
+                           body: <<eos
 <feed gd:etag='W/&quot;AkANQXo7eCp7ImA9WxFTGUo.&quot;' xmlns:gContact='http://schemas.google.com/contact/2008' xmlns:gd='http://schemas.google.com/g/2005' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns='http://www.w3.org/2005/Atom'>
   <id>
     somebody@example.com
@@ -144,8 +146,8 @@ eos
 )
 
       # Third chunk - empty
-      FakeWeb.register_uri(:get, "https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=31",
-                           :body => <<eos
+      FakeWeb.register_uri(:get, 'https://www.google.com/m8/feeds/contacts/test/thin?orderby=lastmodified&showdeleted=true&max-results=15&start-index=31',
+                           body: <<eos
 <feed gd:etag='W/&quot;AkANQXo7eCp7ImA9WxFTGUo.&quot;' xmlns:gContact='http://schemas.google.com/contact/2008' xmlns:gd='http://schemas.google.com/g/2005' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns='http://www.w3.org/2005/Atom'>
   <id>
     somebody@example.com
@@ -185,8 +187,9 @@ eos
 </feed>
 eos
                           )
-
     end
+
+    # rubocop:enable Metrics/LineLength
 
     it 'should update cache' do
       cache = double('Bitsa::ContactsCache')

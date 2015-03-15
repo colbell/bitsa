@@ -75,7 +75,9 @@ module Bitsa #:nodoc:
       url += '&showdeleted=true'
       url += "&max-results=#{@fetch_size}"
       url += "&start-index=#{idx}"
-      url += "&updated-min=#{CGI.escape(cache.source_last_modified)}" if cache.source_last_modified
+      if cache.source_last_modified
+        url += "&updated-min=#{CGI.escape(cache.source_last_modified)}"
+      end
       url
     end
   end
