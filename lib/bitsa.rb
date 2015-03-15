@@ -28,20 +28,27 @@ module Bitsa
     # Run application.
     def run(global_opts, cmd, search_data)
       settings = load_settings(global_opts)
-      cache = ContactsCache.new(settings.cache_file_path, settings.auto_check)
+      process_cmd(cmd, search_data, settings.login, settings.password,
+                  ContactsCache.new(settings.cache_file_path,
+                                    settings.auto_check))
+    end
 
-      generate_skeleton && return if cmd == 'skel'
+    private
+
+    def process_cmd(cmd, search_data, login, password, cache)
+      if cmd == 'skel'
+        generate_skeleton
+        return
+      end
 
       cache.clear! if cmd == 'reload'
 
       if %w(reload, update).include?(cmd) || cache.stale?
-        update_cache(cache, settings.login, settings.password)
+        update_cache(cache, login, password)
       end
 
       search(cache, search_data) if cmd == 'search'
     end
-
-    private
 
     def load_settings(global_opts)
       settings = Settings.new

@@ -31,7 +31,7 @@ module Bitsa #:nodoc:
     def_delegator :@addresses, :empty?
 
     # Date/Time cache was last updated.
-    attr_accessor :source_last_modified
+    attr_accessor :cache_last_modified
 
     # Load cache from file system. After <tt>lifespan_days</tt> the cache
     # is considered stale.
@@ -39,20 +39,20 @@ module Bitsa #:nodoc:
       @cache_file_path = File.expand_path(cache_file_path)
       @lifespan_days = lifespan_days
       @addresses = {}
-      @source_source_last_modified = nil
+      @source_cache_last_modified = nil
       load_from_file_system
     end
 
     def stale?
       @lifespan_days && @lifespan_days > 0 &&
-        (@source_last_modified.nil? ||
-         (DateTime.parse(@source_last_modified) + @lifespan_days) < DateTime.now)
+        (@cache_last_modified.nil? ||
+         (DateTime.parse(@cache_last_modified) + @lifespan_days) < DateTime.now)
     end
 
     # Remove all entries from cache.
     def clear!
       @addresses.clear
-      @source_last_modified = nil
+      @cache_last_modified = nil
     end
 
     def get(id)
@@ -81,7 +81,7 @@ module Bitsa #:nodoc:
 
     def save
       File.open(@cache_file_path, 'w') do |f|
-        f.write(YAML.dump([@source_last_modified, @addresses]))
+        f.write(YAML.dump([@cache_last_modified, @addresses]))
       end
     end
 
@@ -89,10 +89,10 @@ module Bitsa #:nodoc:
 
     def load_from_file_system
       return unless File.exist?(@cache_file_path)
-      @source_last_modified, @addresses = YAML.load_file(@cache_file_path)
+      @cache_last_modified, @addresses = YAML.load_file(@cache_file_path)
       return if @addresses
       @addresses = {}
-      @source_last_modified = nil
+      @cache_last_modified = nil
     end
   end
 end

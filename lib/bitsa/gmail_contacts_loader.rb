@@ -39,7 +39,7 @@ module Bitsa #:nodoc:
 
       idx = 1
       idx += @fetch_size until load_chunk(client, idx, cache) < @fetch_size
-      cache.source_last_modified = DateTime.now.to_s
+      cache.cache_last_modified = DateTime.now.to_s
       cache.save
     end
 
@@ -51,22 +51,21 @@ module Bitsa #:nodoc:
 
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
-        name = entry.elements['title'].text
-        name ||= ''
-        gmail_id = entry.elements['id'].text
-        deleted = entry.elements['gd:deleted'] ? true : false
-        if deleted
-          cache.delete(gmail_id)
-        else
-          addresses = []
-          entry.each_element('gd:email') do |addr|
-            addresses << addr.attributes['address']
-          end
-          cache.update(gmail_id, name, addresses)
-        end
+        process_entry(cache, entry)
         last_modified = entry.elements['updated'].text
       end
       feed.elements.count
+    end
+
+    def process_entry(cache, entry)
+      gmail_id = entry.elements['id'].text
+      if entry.elements['gd:deleted']
+        cache.delete(gmail_id)
+      else
+        addrs = []
+        entry.each_element('gd:email') { |a| addrs << a.attributes['address'] }
+        cache.update(gmail_id, entry.elements['title'].text || '', addrs)
+      end
     end
 
     def generate_loader_url(idx, cache)
@@ -75,8 +74,8 @@ module Bitsa #:nodoc:
       url += '&showdeleted=true'
       url += "&max-results=#{@fetch_size}"
       url += "&start-index=#{idx}"
-      if cache.source_last_modified
-        url += "&updated-min=#{CGI.escape(cache.source_last_modified)}"
+      if cache.cache_last_modified
+        url += "&updated-min=#{CGI.escape(cache.cache_last_modified)}"
       end
       url
     end

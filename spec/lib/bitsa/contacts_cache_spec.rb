@@ -22,12 +22,12 @@ def read_test_data
 end
 
 def create_cache(last_modified = nil, lifespan_days = 1)
-  source_last_modified, addresses = YAML.load_file('spec/data/bitsa_cache.yml')
-  source_last_modified = last_modified.to_s if last_modified
+  cache_last_modified, addresses = YAML.load_file('spec/data/bitsa_cache.yml')
+  cache_last_modified = last_modified.to_s if last_modified
 
   tmp_file = Tempfile.open('cache')
   File.open(tmp_file.path, 'w') do |f|
-    f.write(YAML.dump([source_last_modified, addresses]))
+    f.write(YAML.dump([cache_last_modified, addresses]))
   end
   [Bitsa::ContactsCache.new(tmp_file.path, lifespan_days), tmp_file]
 end
@@ -38,7 +38,7 @@ RSpec.shared_examples_for 'an empty cache' do |c|
     specify { expect(c.size).to eq(0) }
   end
   context 'last modified date' do
-    specify { expect(c.source_last_modified).to be_nil }
+    specify { expect(c.cache_last_modified).to be_nil }
   end
   context :stale do
     specify { expect(c.stale?).to be_truthy }
