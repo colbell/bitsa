@@ -31,7 +31,7 @@ module Bitsa #:nodoc:
       @fetch_size = fetch_size
     end
 
-    # Refresh the passsed <tt>ContactsCache</tt> with the latest contact
+    # Refresh the passed <tt>ContactsCache</tt> with the latest contact
     # changes/deletions from Gmail.
     def update_cache(cache)
       client = GData::Client::Contacts.new
@@ -46,13 +46,13 @@ module Bitsa #:nodoc:
     private
 
     def load_chunk(client, idx, cache)
-      last_modified = nil
+      # last_modified = nil
       url = generate_loader_url(idx, cache)
 
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
         process_entry(cache, entry)
-        last_modified = entry.elements['updated'].text
+        # last_modified = entry.elements['updated'].text
       end
       feed.elements.count
     end
