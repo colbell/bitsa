@@ -38,18 +38,27 @@ module Bitsa #:nodoc:
     # Options passed on the command line override those in the
     # configuration file.
     def load(config_file_hash, options)
+      load_config_file_settings(config_file_hash)
+      load_cmd_line_settings(options)
+
+      @auto_check ||= 1
+      @cache_file_path ||= '~/.bitsa_cache.yml'
+    end
+
+    private
+
+    def load_config_file_settings(config_file_hash)
       @login = config_file_hash.data[:login]
       @password = config_file_hash.data[:password]
       @cache_file_path = config_file_hash.data[:cache_file_path]
       @auto_check = config_file_hash.data[:auto_check]
+    end
 
+    def load_cmd_line_settings(options)
       @login = options[:login] if options[:login]
       @password = options[:password] if options[:password]
       @cache_file_path = options[:cache_file_path] if options[:cache_file_path]
       @auto_check = options[:auto_check] if options[:auto_check]
-
-      @auto_check ||= 1
-      @cache_file_path ||= '~/.bitsa_cache.yml'
     end
   end
 end
