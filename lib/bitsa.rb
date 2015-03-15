@@ -1,4 +1,4 @@
-# Copyright 2011-2012 Colin Bell.
+# Copyright 2011-2015 Colin Bell.
 #
 # This file is part of Bitsa.
 #

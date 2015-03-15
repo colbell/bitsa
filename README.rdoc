@@ -126,7 +126,7 @@ And then you can run the tests:
 
 == License
 
-Copyright (c) 2011-2012 {Colin Bell}[mailto:col@baibell.org]
+Copyright (c) 2011-2015 {Colin Bell}[mailto:col@baibell.org]
 
 Bitsa is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
