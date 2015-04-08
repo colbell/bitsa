@@ -24,7 +24,7 @@ require 'bitsa/version'
 module Bitsa #:nodoc:
   # Arguments passed on the command line. Trollop http://trollop.rubyforge.org
   # is used to handle the parsing.
-  class ArgsProcessor
+  class CLI
     # Valid commands.
     SUB_COMMANDS = %w(update reload search skel)
 
@@ -55,7 +55,7 @@ module Bitsa #:nodoc:
 
       if cmd == 'search'
         @search_data << args.shift unless args.empty?
-      elsif !ArgsProcessor::SUB_COMMANDS.include?(cmd)
+      elsif !CLI::SUB_COMMANDS.include?(cmd)
         Trollop.die "unknown subcommand '#{cmd}'"
       end
     end

@@ -26,8 +26,8 @@ def valid_long_args
   args
 end
 
-describe Bitsa::ArgsProcessor do
-  let(:ap) { Bitsa::ArgsProcessor.new }
+describe Bitsa::CLI do
+  let(:ap) { Bitsa::CLI.new }
 
   it 'should raise SystemExit if an invalid command passed' do
     expect { ap.parse(['unknown']) }.to raise_error(SystemExit)
@@ -47,7 +47,7 @@ describe Bitsa::ArgsProcessor do
   end
 
   context 'passing valid long arguments' do
-    ap = Bitsa::ArgsProcessor.new
+    ap = Bitsa::CLI.new
     ap.parse(valid_long_args)
     it_behaves_like 'a valid set of args', ap
   end
@@ -60,7 +60,7 @@ describe Bitsa::ArgsProcessor do
     args.concat ['-a', '1']
     args << 'update'
 
-    ap = Bitsa::ArgsProcessor.new
+    ap = Bitsa::CLI.new
     ap.parse(args)
     it_behaves_like 'a valid set of args', ap
   end
@@ -69,12 +69,12 @@ describe Bitsa::ArgsProcessor do
     let(:args) { valid_long_args.map { |x| x == '1' ? 'a' : x } }
 
     specify do
-      expect { Bitsa::ArgsProcessor.new.parse(args) }.to raise_error(SystemExit)
+      expect { Bitsa::CLI.new.parse(args) }.to raise_error(SystemExit)
     end
   end
 
   context 'Zero --auto-check argument passed' do
-    let(:ap) { Bitsa::ArgsProcessor.new }
+    let(:ap) { Bitsa::CLI.new }
     before(:each) { ap.parse(valid_long_args.map { |x| x == '1' ? '0' : x }) }
 
     context 'auto-check' do
@@ -83,7 +83,7 @@ describe Bitsa::ArgsProcessor do
   end
 
   context 'Not passing --auto-check' do
-    let(:ap) { Bitsa::ArgsProcessor.new }
+    let(:ap) { Bitsa::CLI.new }
     before(:each) { ap.parse ['update'] }
 
     context 'auto-check' do
@@ -93,7 +93,7 @@ describe Bitsa::ArgsProcessor do
 
   context 'Not passing --config-file' do
     before(:each) { ap.parse ['update'] }
-    let(:ap) { Bitsa::ArgsProcessor.new }
+    let(:ap) { Bitsa::CLI.new }
 
     context 'config_file' do
       specify do
@@ -104,7 +104,7 @@ describe Bitsa::ArgsProcessor do
 
   context 'passing --search with some search data' do
     before(:each) { ap.parse %w(search something) }
-    let(:ap) { Bitsa::ArgsProcessor.new }
+    let(:ap) { Bitsa::CLI.new }
 
     context 'search_data' do
       specify { expect(ap.search_data).to eq 'something' }

@@ -26,7 +26,7 @@
 require 'bitsa'
 require 'bitsa/args_processor'
 
-args = Bitsa::ArgsProcessor.new
+args = Bitsa::CLI.new
 args.parse(ARGV)
 
 app = Bitsa::BitsaApp.new
