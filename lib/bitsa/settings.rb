@@ -35,7 +35,7 @@ module Bitsa #:nodoc:
 
     #
     attr_reader :auto_check
-    # @!attribute [r] cache_file_path
+    # @!attribute [r] auto_check
     #   @return [Integer] Number of days before auto checking if updates exist
     #                     in GMail, zero means never auto-check
 
