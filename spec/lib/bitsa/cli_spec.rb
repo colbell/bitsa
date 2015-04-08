@@ -1,5 +1,5 @@
 require 'helper'
-require 'bitsa/args_processor'
+require 'bitsa/cli'
 
 RSpec.shared_examples 'a valid set of args' do |ap|
   context :config_file do
