@@ -22,9 +22,11 @@ require 'gdata'
 module Bitsa #:nodoc:
   # Loads Contacts from Gmail into a <tt>ContactsCache</tt> object.
   class GmailContactsLoader
-    # Ctor specifying the Gmail (or Google Apps) user name and
-    # password and optionally the number of records to retrieve in
-    # each chunk.
+    # Ctor.
+    #
+    # @param [String] user Login to use to connect to GMail.
+    # @param [String] pw Password to use to connect to GMail.
+    # @param [Integer] fetch_size Number of records to retrieve at a time.
     def initialize(user, pw, fetch_size = 25)
       @user = user
       @pw = pw
@@ -33,21 +35,31 @@ module Bitsa #:nodoc:
 
     # Refresh the passed <tt>ContactsCache</tt> with the latest contact
     # changes/deletions from Gmail.
+    #
+    # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
     def update_cache(cache)
       client = GData::Client::Contacts.new
       client.clientlogin(@user, @pw)
 
+      # Retrieve changes updating cache until no more changes.
       idx = 1
       idx += @fetch_size until load_chunk(client, idx, cache) < @fetch_size
+
+      # Write cache to disk remembering when it was updated.
       cache.cache_last_modified = DateTime.now.to_s
       cache.save
     end
 
     private
 
+    # Load the next chuck of data from GMail into the cache.
+    #
+    # @param [GData::Client::Contacts] client Connection to GMail.
+    # @param [Integer] idx Index of next piece of data to read from <tt>client</tt>.
+    # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
     def load_chunk(client, idx, cache)
       # last_modified = nil
-      url = generate_loader_url(idx, cache)
+      url = generate_loader_url(idx, cache.cache_last_modified)
 
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
@@ -57,6 +69,10 @@ module Bitsa #:nodoc:
       feed.elements.count
     end
 
+    # Process a Gmail contact, updating the cache appropriately.
+    #
+    # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
+    # @param [REXML::Element] entry GMail data for a contact.
     def process_entry(cache, entry)
       gmail_id = entry.elements['id'].text
       if entry.elements['gd:deleted']
@@ -68,14 +84,21 @@ module Bitsa #:nodoc:
       end
     end
 
-    def generate_loader_url(idx, cache)
+    # Generate the URL to retrieve the next chunk of data from GMail.
+    #
+    # @param [Integer] idx Index of next piece of data to read from
+    #   <tt>client</tt>.
+    # @param [Datetime] cache_last_modified modification time of last contact
+    #   read from GMail
+    def generate_loader_url(idx, cache_last_modified)
+      # FIXME: Escape variables
       url = "https://www.google.com/m8/feeds/contacts/#{@user}/thin"
       url += '?orderby=lastmodified'
       url += '&showdeleted=true'
       url += "&max-results=#{@fetch_size}"
       url += "&start-index=#{idx}"
-      if cache.cache_last_modified
-        url += "&updated-min=#{CGI.escape(cache.cache_last_modified)}"
+      if cache_last_modified
+        url += "&updated-min=#{CGI.escape(cache_last_modified)}"
       end
       url
     end

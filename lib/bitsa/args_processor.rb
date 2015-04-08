@@ -30,17 +30,23 @@ module Bitsa #:nodoc:
 
     # Global options passed on the command line.
     attr_reader :global_opts
+    # @!attribute [r] global_opts
+    #   @return [Hash] the options passed on the command line
 
-    # The command to execute
     attr_reader :cmd
+    # @!attribute [r] cmd
+    #   @return [String] the command to execute
 
-    # Data to search cached contacts for.
     attr_reader :search_data
+    # @!attribute [r] search_data
+    #   @return [String] the data to search cached contacts for
 
     # Parse arguments and setup attributes. If invalid data is passed a
     # Trollop exception is thrown and the program terminated.
     #
     # It also handles showing the Help and Version information.
+    #
+    # @param args [String[]] Cmd line arguments.
     def parse(args)
       @global_opts = create_global_args(args)
 
@@ -57,6 +63,13 @@ module Bitsa #:nodoc:
     private
 
     # rubocop:disable Metrics/MethodLength
+
+    #
+    # Process cmd line arguments using Trollop.
+    #
+    # @param args [String[]] Cmd line arguments.
+    #
+    # @return [Hash] arguments from command line.
     def create_global_args(args)
       Trollop.options(args) do
         version "bitsa v#{Bitsa::VERSION}"

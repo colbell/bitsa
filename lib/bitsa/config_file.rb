@@ -24,8 +24,12 @@ module Bitsa #:nodoc:
   class ConfigFile
     # Loaded configuration data as a Hash.
     attr_reader :data
+    # @!attribute [r] data
+    #   @return [Hash] Settings from configuration file.
 
-    # Load data from passed file path.
+    # Load configuration data from passed file path.
+    #
+    # @param [String] config_file_path_name Path of file to load.
     def initialize(config_file_path_name)
       c_f_n = File.expand_path(config_file_path_name)
       @data = YAML.load_file(c_f_n) if File.exist?(c_f_n)

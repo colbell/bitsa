@@ -24,17 +24,24 @@ module Bitsa #:nodoc:
   class ContactsCache
     extend Forwardable
 
-    # Number of entries in cache.
+    # @!method size
+    #   @return [Integer] number of contacts
     def_delegator :@addresses, :size
 
-    # True if cache is empty.
+    #
+    # @!method size
+    #   @return [Boolean] True if cache is empty.
     def_delegator :@addresses, :empty?
 
-    # Date/Time cache was last updated.
     attr_accessor :cache_last_modified
+    # @!attribute [rw] cache_last_modified
+    #   @return [Datetime] when the contacts cache was last updated
 
-    # Load cache from file system. After <tt>lifespan_days</tt> the cache
-    # is considered stale.
+    # Load cache from file system.
+    #
+    # @param [String] cache_file_path Path to cache file.
+    # @param [Integer] lifespan_days Number of days after which the cache is
+    #   considered stale. If nil or 0 then cache is never stale.
     def initialize(cache_file_path, lifespan_days)
       @cache_file_path = File.expand_path(cache_file_path)
       @lifespan_days = lifespan_days
@@ -43,6 +50,9 @@ module Bitsa #:nodoc:
       load_from_file_system
     end
 
+    # Is cache state?
+    #
+    # @return [Boolean] <tt>true</tt> if cache stale else <tt>false</tt>.
     def stale?
       @lifespan_days && @lifespan_days > 0 &&
         (@cache_last_modified.nil? ||
@@ -55,10 +65,33 @@ module Bitsa #:nodoc:
       @cache_last_modified = nil
     end
 
+    # Retrieves name and email addresses for the passed ID.
+    #
+    # @param [String] id GMail ID for contact
+    #
+    # @return [[[String, String]]] Array of email addresses and names. Each
+    #   element consists of a 2 element array. The first is the email address
+    #   and the second is the name
+    #
+    # @example
+    #   cache.get("http://www.google.com/m8/fes/.../base/637e301a549c176e") #=>
+    #     [["email1@a.com", "Mr Smith"], ["email2@bsomewhere.com", "Mr Smith"]]
     def get(id)
       @addresses[id]
     end
 
+    # Retrieves name and email addresses that contain the passed string sorted
+    # by email adddress
+    #
+    # @param qry [String] search string
+    #
+    # @return [[[String, String]]] Array of email addresses and names found.
+    #   Each element consists of a 2 element array. The first is the email
+    #   address and the second is the name
+    #
+    # @example
+    #   cache.search("smi") #=>
+    #     [["e1@acompany.com", "Mr Smith"], ["e2@bsomewhere.com", "Mr Smith"]]
     def search(qry)
       rg = Regexp.new(qry || '', Regexp::IGNORECASE)
 
@@ -71,14 +104,23 @@ module Bitsa #:nodoc:
       results.sort { |a, b| a[0].downcase <=> b[0].downcase }
     end
 
+    # Update the name and email addresses for the passed GMail ID.
+    #
+    # @param [String] id ID of contact to be updated
+    # @param [String] name new name for contact
+    # @param [String[]] addresses array of email addresses
     def update(id, name, addresses)
       @addresses[id] = addresses.map { |a| [a, name] }
     end
 
+    # Delete the contact information for the passed GMail ID.
+    #
+    # @param [String] id ID of contact to be deleted
     def delete(id)
       @addresses.delete(id)
     end
 
+    # Write out the contacts cache to its cache file.
     def save
       File.open(@cache_file_path, 'w') do |f|
         f.write(YAML.dump([@cache_last_modified, @addresses]))
@@ -87,6 +129,7 @@ module Bitsa #:nodoc:
 
     private
 
+    # Load contacts cache from the file system.
     def load_from_file_system
       return unless File.exist?(@cache_file_path)
       @cache_last_modified, @addresses = YAML.load_file(@cache_file_path)

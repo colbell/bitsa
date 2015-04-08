@@ -19,5 +19,6 @@
 
 # Bitsa version.
 module Bitsa  #:nodoc:
+  # @return bitsa application version.
   VERSION = '0.30'
 end

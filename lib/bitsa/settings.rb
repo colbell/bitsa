@@ -20,23 +20,34 @@
 module Bitsa #:nodoc:
   # Application settings.
   class Settings
-    # Login to use to connect to GMail.
     attr_reader :login
+    # @!attribute [r] login
+    #   @return [String] Login to use to connect to GMail.
 
-    # Password to use to connect to GMail.
     attr_reader :password
+    # @!attribute [r] password
+    #   @return [String] Password to use to connect to GMail.
 
     # Path to file to store cached contact information in.
     attr_reader :cache_file_path
+    # @!attribute [r] cache_file_path
+    #   @return [String] Path of file to store contacts in.
 
-    # Number of days before auto checking
+    #
     attr_reader :auto_check
+    # @!attribute [r] cache_file_path
+    #   @return [Integer] Number of days before auto checking if updates exist
+    #                     in GMail, zero means never auto-check
 
     # Load settings from a hash of data from the configuration file and
     # options passed on the command line.
     #
     # Options passed on the command line override those in the
     # configuration file.
+    #
+    # @param  [Hash] config_file_hash <tt>Hash</tt> of settings loaded from
+    #                                 configuration file.
+    # @param  [Hash] options <tt>Hash</tt> of settings passed on command line.
     def load(config_file_hash, options)
       load_config_file_settings(config_file_hash)
       load_cmd_line_settings(options)
@@ -47,6 +58,10 @@ module Bitsa #:nodoc:
 
     private
 
+    # Load settings from the configuration file hash.
+    #
+    # @param  [Hash] config_file_hash <tt>Hash</tt> of settings loaded from
+    #                                 configuration file.
     def load_config_file_settings(config_file_hash)
       @login = config_file_hash.data[:login]
       @password = config_file_hash.data[:password]
@@ -54,6 +69,10 @@ module Bitsa #:nodoc:
       @auto_check = config_file_hash.data[:auto_check]
     end
 
+    # Load settings from the command line hash. Load a setting only if it was
+    # passed.
+    #
+    # @param  [Hash] options <tt>Hash</tt> of settings passed on command line.
     def load_cmd_line_settings(options)
       @login = options[:login] if options[:login]
       @password = options[:password] if options[:password]

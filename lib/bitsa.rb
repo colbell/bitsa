@@ -26,6 +26,10 @@ module Bitsa
   # Application entry point.
   class BitsaApp
     # Run application.
+    #
+    # @param global_opts [Hash] Application arguments
+    # @param cmd [String] The command requested.
+    # @param search_data [String] Data to search for from cmd line.
     def run(global_opts, cmd, search_data)
       settings = load_settings(global_opts)
       process_cmd(cmd, search_data, settings.login, settings.password,
@@ -35,6 +39,11 @@ module Bitsa
 
     private
 
+    # Process a command passed on the command line.
+    # @param cmd [String] The command requested.
+    # @param search_data [String] Data to search for from cmd line.
+    # @param login [String] GMail login.
+    # @param password [String] GMail password.
     def process_cmd(cmd, search_data, login, password, cache)
       if cmd == 'skel'
         generate_skeleton
@@ -50,6 +59,10 @@ module Bitsa
       search(cache, search_data) if cmd == 'search'
     end
 
+    # Load settings, combining arguments from cmd lien and the settings file.
+    # @param global_opts [Hash] Application arguments
+    # @return [Settings] Object representing the settings for this run of the
+    #                    app.
     def load_settings(global_opts)
       settings = Settings.new
       settings.load(ConfigFile.new(global_opts[:config_file]), global_opts)
@@ -67,12 +80,20 @@ module Bitsa
 EOS
     end
 
-    # Search the cache for the requested search_data.
+    # Search the cache for the requested search_data and write the results to
+    # std output.
+    # @param cache [ContactsCache] Cache of contacts to be searched.
+    # @param search_data [String] Data to search cache for.
     def search(cache, search_data)
       puts '' # Force first entry to be displayed in mutt
+      # Write out as EMAIL <TAB> NAME
       cache.search(search_data).each { |k, v| puts "#{k}\t#{v}" }
     end
 
+    # @param cache [ContactsCache] Cache of contacts to be searched.
+    # Update cache with any changes from GMail.
+    # @param login [String] GMail login.
+    # @param password [String] GMail password.
     def update_cache(cache, login, password)
       GmailContactsLoader.new(login, password).update_cache(cache)
     end
