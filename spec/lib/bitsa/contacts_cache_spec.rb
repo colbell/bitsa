@@ -269,6 +269,11 @@ describe Bitsa::ContactsCache do
       expect(cache.get(id)).to match_array [['tammy5@example.com',
                                              'Tammy Smith']]
     end
+
+    specify 'should update cache_last_modified' do
+      expect { cache.update(id, 'Tammy Smith', ['tammy5@example.com']) }
+        .to change(cache, :cache_last_modified)
+    end
   end
 
   context 'updating with two email addresses' do
@@ -311,6 +316,10 @@ describe Bitsa::ContactsCache do
     specify 'should return the deleted entry' do
       expect(cache.delete(id)).to match_array [['Joan.bloggs@somewhere.com.au',
                                                 'Joan Bloggshere']]
+    end
+
+    specify 'should update cache_last_modified' do
+      expect { cache.delete(id) }.to change(cache, :cache_last_modified)
     end
 
     context 'the cache' do

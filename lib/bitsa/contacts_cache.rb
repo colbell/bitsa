@@ -33,8 +33,8 @@ module Bitsa #:nodoc:
     #   @return [Boolean] True if cache is empty.
     def_delegator :@addresses, :empty?
 
-    attr_accessor :cache_last_modified
-    # @!attribute [rw] cache_last_modified
+    attr_reader :cache_last_modified
+    # @!attribute [r] cache_last_modified
     #   @return [Datetime] when the contacts cache was last updated
 
     # Load cache from file system.
@@ -110,6 +110,7 @@ module Bitsa #:nodoc:
     # @param [String] name new name for contact
     # @param [String[]] addresses array of email addresses
     def update(id, name, addresses)
+      @cache_last_modified = DateTime.now.to_s
       @addresses[id] = addresses.map { |a| [a, name] }
     end
 
@@ -117,6 +118,7 @@ module Bitsa #:nodoc:
     #
     # @param [String] id ID of contact to be deleted
     def delete(id)
+      @cache_last_modified = DateTime.now.to_s
       @addresses.delete(id)
     end
 

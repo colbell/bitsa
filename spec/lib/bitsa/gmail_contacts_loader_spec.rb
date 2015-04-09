@@ -195,8 +195,7 @@ eos
       cache = double('Bitsa::ContactsCache')
       gcl = Bitsa::GmailContactsLoader.new('test', 'pw', 15)
       expect(cache).to receive(:update).once
-      expect(cache).to receive(:cache_last_modified=).once
-      expect(cache).to receive(:cache_last_modified).exactly(3)
+      expect(cache).to receive(:cache_last_modified).once
       expect(cache).to receive(:save).once
       expect(cache).to receive(:delete).once
       gcl.update_cache(cache)

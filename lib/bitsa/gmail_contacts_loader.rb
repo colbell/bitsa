@@ -43,10 +43,12 @@ module Bitsa #:nodoc:
 
       # Retrieve changes updating cache until no more changes.
       idx = 1
-      idx += @fetch_size until load_chunk(client, idx, cache) < @fetch_size
+      orig_last_modified = cache.cache_last_modified
+      until load_chunk(client, idx, cache, orig_last_modified) < @fetch_size
+        idx += @fetch_size
+      end
 
-      # Write cache to disk remembering when it was updated.
-      cache.cache_last_modified = DateTime.now.to_s
+      # Write cache to disk
       cache.save
     end
 
@@ -55,11 +57,14 @@ module Bitsa #:nodoc:
     # Load the next chuck of data from GMail into the cache.
     #
     # @param [GData::Client::Contacts] client Connection to GMail.
-    # @param [Integer] idx Index of next piece of data to read from <tt>client</tt>.
+    # @param [Integer] idx Index of next piece of data to read from
+    #                      <tt>client</tt>.
     # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
-    def load_chunk(client, idx, cache)
+    # @param [Datetime] orig_last_modified Time that <tt>cache</tt> was last
+    #                                      modified before we started our update
+    def load_chunk(client, idx, cache, orig_last_modified)
       # last_modified = nil
-      url = generate_loader_url(idx, cache.cache_last_modified)
+      url = generate_loader_url(idx, orig_last_modified)
 
       feed = client.get(url).to_xml
       feed.elements.each('entry') do |entry|
