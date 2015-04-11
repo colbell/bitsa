@@ -28,17 +28,19 @@ module Bitsa #:nodoc:
     # Valid commands.
     SUB_COMMANDS = %w(update reload search skel)
 
-    # Global options passed on the command line.
     attr_reader :global_opts
     # @!attribute [r] global_opts
+    #   Global options passed on the command line.
     #   @return [Hash] the options passed on the command line
 
     attr_reader :cmd
     # @!attribute [r] cmd
+    #   command to execute
     #   @return [String] the command to execute
 
     attr_reader :search_data
     # @!attribute [r] search_data
+    #   Search data
     #   @return [String] the data to search cached contacts for
 
     # Parse arguments and setup attributes.
