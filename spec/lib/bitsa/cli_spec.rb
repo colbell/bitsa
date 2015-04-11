@@ -29,12 +29,16 @@ end
 describe Bitsa::CLI do
   let(:ap) { Bitsa::CLI.new }
 
-  it 'should raise SystemExit if an invalid command passed' do
-    expect { ap.parse(['unknown']) }.to raise_error(SystemExit)
+  context 'an invalid command passed' do
+    it 'should raise SystemExit' do
+      expect { ap.parse(['unknown']) }.to raise_error(SystemExit)
+    end
   end
 
-  it 'should raise SystemExit if nothing passed' do
-    expect { ap.parse([]) }.to raise_error(SystemExit)
+  context 'no command passed' do
+    it 'should raise SystemExit' do
+      expect { ap.parse([]) }.to raise_error(SystemExit)
+    end
   end
 
   context 'passed' do
