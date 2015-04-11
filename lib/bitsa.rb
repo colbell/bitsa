@@ -24,14 +24,14 @@ require 'bitsa/settings'
 
 module Bitsa
   # Application entry point.
+  #
+  # @example run the application
+  #   args = Bitsa::CLI.new
+  #   args.parse(ARGV)
+  #   app = Bitsa::BitsaApp.new
+  #   app.run(args.global_opts, args.cmd, args.search_data)
   class BitsaApp
     # Run application.
-    #
-    # @example run the application
-    #   args = Bitsa::CLI.new
-    #   args.parse(ARGV)
-    #   app = Bitsa::BitsaApp.new
-    #   app.run(args.global_opts, args.cmd, args.search_data)
     #
     # @param global_opts [Hash] Application arguments
     # @param cmd [String] The command requested.
