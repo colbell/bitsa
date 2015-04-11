@@ -36,6 +36,8 @@ module Bitsa
     # @param global_opts [Hash] Application arguments
     # @param cmd [String] The command requested.
     # @param search_data [String] Data to search for from cmd line.
+    #
+    # @return [nil] ignored
     def run(global_opts, cmd, search_data)
       settings = load_settings(global_opts)
       process_cmd(cmd, search_data, settings.login, settings.password,

@@ -41,12 +41,18 @@ module Bitsa #:nodoc:
     # @!attribute [r] search_data
     #   @return [String] the data to search cached contacts for
 
-    # Parse arguments and setup attributes. If invalid data is passed a
-    # Trollop exception is thrown and the program terminated.
+    # Parse arguments and setup attributes.
     #
     # It also handles showing the Help and Version information.
     #
+    # @example parse command line arguments
+    #   Bitsa::CLI.new.parse(ARGV)
+    #
     # @param args [String[]] Cmd line arguments.
+    #
+    # @return [nil] Ignored
+    #
+    # @raise [TrollopException] If invalid data is passed
     def parse(args)
       @global_opts = create_global_args(args)
 
