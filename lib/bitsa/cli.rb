@@ -24,6 +24,10 @@ require 'bitsa/version'
 module Bitsa #:nodoc:
   # Arguments passed on the command line. Trollop http://trollop.rubyforge.org
   # is used to handle the parsing.
+  #
+  # @example parse command line arguments
+  #   cli = Bitsa::CLI.new.parse(ARGV)
+  #   puts cli.cmd   # Command requested
   class CLI
     # Valid commands.
     SUB_COMMANDS = %w(update reload search skel)
