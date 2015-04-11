@@ -1,3 +1,6 @@
 rvm:
   - "2.2.1"
   - "2.1.5"
+script: bundle exec rake spec
+install: bundle install --jobs=1
+cache: bundler
