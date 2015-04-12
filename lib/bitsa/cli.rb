@@ -27,7 +27,7 @@ module Bitsa #:nodoc:
   #
   # @example parse command line arguments
   #   cli = Bitsa::CLI.new.parse(ARGV)
-  #   puts cli.cmd   # Command requested
+  #   puts cli.cmd   # => search
   class CLI
     # Valid commands.
     SUB_COMMANDS = %w(update reload search skel)
@@ -35,11 +35,17 @@ module Bitsa #:nodoc:
     attr_reader :global_opts
     # @!attribute [r] global_opts
     #   Global options passed on the command line.
-    #   @return [Hash]
+    #
+    # @example
+    #   global_opts[:config_file] # => "~/.bitsa.yml"
+    #
+    # @return [Hash]
 
     attr_reader :cmd
     # @!attribute [r] cmd
     #   command to execute
+    #   @example
+    #     cmd # => "reload"
     #   @return [String]
 
     attr_reader :search_data
@@ -52,7 +58,7 @@ module Bitsa #:nodoc:
     # It also handles showing the Help and Version information.
     #
     # @example parse command line arguments
-    #   Bitsa::CLI.new.parse(ARGV)
+    #   Bitsa::CLI.new.parse(ARGV) # => nil
     #
     # @param args [String[]] Cmd line arguments.
     #
