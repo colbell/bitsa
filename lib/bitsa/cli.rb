@@ -44,14 +44,20 @@ module Bitsa #:nodoc:
     attr_reader :cmd
     # @!attribute [r] cmd
     #   command to execute
-    #   @example
-    #     cmd # => "reload"
-    #   @return [String]
+    #
+    # @example
+    #   cmd # => "reload"
+    #
+    # @return [String]
 
     attr_reader :search_data
     # @!attribute [r] search_data
-    #    the data to search cached contacts for
-    #   @return [String]
+    #   the data to search cached contacts for
+    #
+    # @example
+    #   cmd # => "reload" # => "john smith"
+    #
+    # @return [String]
 
     # Parse arguments and setup attributes.
     #
