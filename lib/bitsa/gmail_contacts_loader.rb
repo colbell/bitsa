@@ -37,6 +37,8 @@ module Bitsa #:nodoc:
     # changes/deletions from Gmail.
     #
     # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
+    #
+    # @return [nil]
     def update_cache(cache)
       client = GData::Client::Contacts.new
       client.clientlogin(@user, @pw)
@@ -62,6 +64,8 @@ module Bitsa #:nodoc:
     # @param [Bitsa::ContacstCache] cache Cache to be updated from GMail.
     # @param [Datetime] orig_last_modified Time that <tt>cache</tt> was last
     #                                      modified before we started our update
+    #
+    # @return [Integer] Number of records read.
     def load_chunk(client, idx, cache, orig_last_modified)
       # last_modified = nil
       url = generate_loader_url(idx, orig_last_modified)

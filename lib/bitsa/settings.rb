@@ -20,24 +20,33 @@
 module Bitsa #:nodoc:
   # Application settings.
   class Settings
-    attr_reader :login
+    # Login to use to connect to GMail/Google Apps. Your email
+    # address.
+    #
+    # @return [String] Login to use to connect to GMail.
+    #
     # @!attribute [r] login
-    #   @return [String] Login to use to connect to GMail.
+    attr_reader :login
 
-    attr_reader :password
+    # Password to use to connect to GMail/Google Apps.
+    # @return [String] Password to use to connect to GMail.
+    #
     # @!attribute [r] password
-    #   @return [String] Password to use to connect to GMail.
+    attr_reader :password
 
     # Path to file to store cached contact information in.
-    attr_reader :cache_file_path
-    # @!attribute [r] cache_file_path
-    #   @return [String] Path of file to store contacts in.
-
     #
-    attr_reader :auto_check
+    # @return [String] Path of file to store contacts in.
+    #
+    # @!attribute [r] cache_file_path
+    attr_reader :cache_file_path
+
+    # Number of days before auto checking if updates exist
+    #
+    # @return [Integer] Number of days before auto checking if updates exist
+    #                   in GMail, zero means never auto-check
     # @!attribute [r] auto_check
-    #   @return [Integer] Number of days before auto checking if updates exist
-    #                     in GMail, zero means never auto-check
+    attr_reader :auto_check
 
     # Load settings from a hash of data from the configuration file and
     # options passed on the command line.
@@ -48,6 +57,8 @@ module Bitsa #:nodoc:
     # @param  [Hash] config_file_hash <tt>Hash</tt> of settings loaded from
     #                                 configuration file.
     # @param  [Hash] options <tt>Hash</tt> of settings passed on command line.
+    #
+    # @return [nil]
     def load(config_file_hash, options)
       load_config_file_settings(config_file_hash)
       load_cmd_line_settings(options)

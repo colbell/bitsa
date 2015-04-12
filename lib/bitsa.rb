@@ -52,6 +52,9 @@ module Bitsa
     # @param search_data [String] Data to search for from cmd line.
     # @param login [String] GMail login.
     # @param password [String] GMail password.
+    # @param cache  [ContactsCache] Cache of contacts.
+    #
+    # @return [nil]
     def process_cmd(cmd, search_data, login, password, cache)
       if cmd == 'skel'
         generate_skeleton

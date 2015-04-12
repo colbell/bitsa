@@ -24,21 +24,27 @@ module Bitsa #:nodoc:
   class ContactsCache
     extend Forwardable
 
+    # number of contacts
+    #
+    # @return [Integer]
+    #
     # @!method size
-    #   number of contacts
-    #   @return [Integer]
     def_delegator :@addresses, :size
 
     #
+    # true if cache is empty else false
+    #
+    # @return [Boolean]
+    #
     # @!method size
-    #   true if cache is empty else false
-    #   @return [Boolean]
     def_delegator :@addresses, :empty?
 
-    attr_reader :cache_last_modified
+    # When cache was last modified.
+    #
+    # @return [Datetime] When cache was last modified.
+    #
     # @!attribute [r] cache_last_modified
-    #   When cache was last modified.
-    #   @return [Datetime]
+    attr_reader :cache_last_modified
 
     # Load cache from file system.
     #
@@ -63,6 +69,7 @@ module Bitsa #:nodoc:
     end
 
     # Remove all entries from cache.
+    #
     # @return [nil]
     def clear!
       @addresses.clear
@@ -133,6 +140,8 @@ module Bitsa #:nodoc:
     end
 
     # Write out the contacts cache to its cache file.
+    #
+    # @return [nil]
     def save
       File.open(@cache_file_path, 'w') do |f|
         f.write(YAML.dump([@cache_last_modified, @addresses]))
