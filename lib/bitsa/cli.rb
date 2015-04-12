@@ -42,7 +42,6 @@ module Bitsa #:nodoc:
     # @!attribute [r] global_opts
     attr_reader :global_opts
 
-    attr_reader :cmd
     # @!attribute [r] cmd
     #   command to execute
     #
@@ -50,12 +49,13 @@ module Bitsa #:nodoc:
     #     cmd # => "reload"
     #
     #   @return [String] the command to be executed
+    attr_reader :cmd
 
     # @!attribute [r] search_data
     #   the data to search cached contacts for
     #
     #   @example
-    #     search_data # => "reload" # => "john smith"
+    #     search_data # => "john smith"
     #
     #   @return [String] the search data
     attr_reader :search_data
@@ -65,7 +65,9 @@ module Bitsa #:nodoc:
     # It also handles showing the Help and Version information.
     #
     # @example parse command line arguments
-    #   Bitsa::CLI.new.parse(ARGV) # => nil
+    #   cli = Bitsa::CLI.new
+    #   cli.parse(ARGV)
+    #   cli.cmd # => # => "reload"
     #
     # @param args [String[]] Cmd line arguments.
     #
