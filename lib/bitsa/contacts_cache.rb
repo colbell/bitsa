@@ -65,7 +65,10 @@ module Bitsa #:nodoc:
 
     # Is cache state? true or false
     #
-    # @return [Boolean]
+    # @example
+    #   stale? # => true
+    #
+    # @return [Boolean] true if cache stale else false
     def stale?
       @lifespan_days && @lifespan_days > 0 &&
         (@cache_last_modified.nil? ||
