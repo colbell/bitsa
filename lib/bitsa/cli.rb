@@ -32,14 +32,15 @@ module Bitsa #:nodoc:
     # Valid commands.
     SUB_COMMANDS = %w(update reload search skel)
 
-    attr_reader :global_opts
-    # @!attribute [r] global_opts
-    #   Global options passed on the command line.
+    # Global options passed on the command line.
     #
     # @example
     #   global_opts[:config_file] # => "~/.bitsa.yml"
     #
     # @return [Hash]
+    #
+    # @!attribute [r] global_opts
+    attr_reader :global_opts
 
     attr_reader :cmd
     # @!attribute [r] cmd
