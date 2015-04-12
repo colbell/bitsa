@@ -96,6 +96,9 @@ module Bitsa #:nodoc:
     #
     # Process cmd line arguments using Trollop.
     #
+    # @example
+    #   create_global_args(ARGV)
+    #
     # @param args [String[]] Cmd line arguments.
     #
     # @return [Hash] arguments from command line.
