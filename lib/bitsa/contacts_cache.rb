@@ -21,6 +21,10 @@ require 'forwardable'
 
 module Bitsa #:nodoc:
   # Cache of Contacts.
+  #
+  # @example
+  #   cache = Bitsa::ContactsCache.new(tmp_file.path, lifespan_days)
+  #   cache.search("rob") # => [['robert@example.com]['Robert Brown']]
   class ContactsCache
     extend Forwardable
 

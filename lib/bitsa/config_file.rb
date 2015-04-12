@@ -21,6 +21,10 @@ require 'yaml'
 
 module Bitsa #:nodoc:
   # Loads configuration data from a yaml file.
+  #
+  # @example
+  #   c = ConfigFile.new('~/.bitsa.yml)
+  #   c.data[:login] # => 'testuser@gmail.com'
   class ConfigFile
     # Loaded configuration data as a Hash.
     attr_reader :data
@@ -28,6 +32,9 @@ module Bitsa #:nodoc:
     #   @return [Hash] Settings from configuration file.
 
     # Load configuration data from passed file path.
+    #
+    # @example
+    #   ConfigFile.new('~/.bitsa.yml)
     #
     # @param [String] config_file_path_name Path of file to load.
     def initialize(config_file_path_name)

@@ -19,6 +19,11 @@
 
 module Bitsa #:nodoc:
   # Application settings.
+  #
+  # @example
+  #
+  #   s = Settings.new(Bitsa::ConfigFile.new('~/.bitsa.yml'))
+  #   s.login # => 'test@gmail.com'
   class Settings
     # Login to use to connect to GMail/Google Apps. Your email
     # address.
