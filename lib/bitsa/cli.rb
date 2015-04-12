@@ -42,22 +42,24 @@ module Bitsa #:nodoc:
     # @!attribute [r] global_opts
     attr_reader :global_opts
 
+    # command to execute
+    #
+    # @example
+    #   cmd # => "reload"
+    #
+    # @return [String] the command to be executed
+    #
     # @!attribute [r] cmd
-    #   command to execute
-    #
-    #   @example
-    #     cmd # => "reload"
-    #
-    #   @return [String] the command to be executed
     attr_reader :cmd
 
+    # the data to search cached contacts for
+    #
+    # @example
+    #   search_data # => "john smith"
+    #
+    # @return [String] the search data
+    #
     # @!attribute [r] search_data
-    #   the data to search cached contacts for
-    #
-    #   @example
-    #     search_data # => "john smith"
-    #
-    #   @return [String] the search data
     attr_reader :search_data
 
     # Parse arguments and setup attributes.
