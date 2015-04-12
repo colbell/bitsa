@@ -51,14 +51,14 @@ module Bitsa #:nodoc:
     #
     #   @return [String] the command to be executed
 
-    attr_reader :search_data
     # @!attribute [r] search_data
     #   the data to search cached contacts for
     #
     #   @example
     #     search_data # => "reload" # => "john smith"
     #
-    #   @return [String]
+    #   @return [String] the search data
+    attr_reader :search_data
 
     # Parse arguments and setup attributes.
     #
