@@ -21,6 +21,9 @@ require 'gdata'
 
 module Bitsa #:nodoc:
   # Loads Contacts from Gmail into a <tt>ContactsCache</tt> object.
+  #
+  # @example
+  #   GmailContactsLoader.new(login, password).update_cache(cache)
   class GmailContactsLoader
     # Ctor.
     #
