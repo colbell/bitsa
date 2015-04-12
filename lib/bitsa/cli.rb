@@ -36,28 +36,28 @@ module Bitsa #:nodoc:
     # @!attribute [r] global_opts
     #   Global options passed on the command line.
     #
-    # @example
-    #   global_opts[:config_file] # => "~/.bitsa.yml"
+    #   @example
+    #     global_opts[:config_file] # => "~/.bitsa.yml"
     #
-    # @return [Hash]
+    #   @return [Hash]
 
     attr_reader :cmd
     # @!attribute [r] cmd
     #   command to execute
     #
-    # @example
-    #   cmd # => "reload"
+    #   @example
+    #     cmd # => "reload"
     #
-    # @return [String]
+    #   @return [String]
 
     attr_reader :search_data
     # @!attribute [r] search_data
     #   the data to search cached contacts for
     #
-    # @example
-    #   cmd # => "reload" # => "john smith"
+    #   @example
+    #     cmd # => "reload" # => "john smith"
     #
-    # @return [String]
+    #   @return [String]
 
     # Parse arguments and setup attributes.
     #
