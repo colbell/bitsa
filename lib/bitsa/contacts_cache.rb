@@ -25,17 +25,20 @@ module Bitsa #:nodoc:
     extend Forwardable
 
     # @!method size
-    #   @return [Integer] number of contacts
+    #   number of contacts
+    #   @return [Integer]
     def_delegator :@addresses, :size
 
     #
     # @!method size
-    #   @return [Boolean] True if cache is empty.
+    #   true if cache is empty else false
+    #   @return [Boolean]
     def_delegator :@addresses, :empty?
 
     attr_reader :cache_last_modified
     # @!attribute [r] cache_last_modified
-    #   @return [Datetime] when the contacts cache was last updated
+    #   When cache was last modified.
+    #   @return [Datetime]
 
     # Load cache from file system.
     #
@@ -50,9 +53,9 @@ module Bitsa #:nodoc:
       load_from_file_system
     end
 
-    # Is cache state?
+    # Is cache state? true or false
     #
-    # @return [Boolean] <tt>true</tt> if cache stale else <tt>false</tt>.
+    # @return [Boolean]
     def stale?
       @lifespan_days && @lifespan_days > 0 &&
         (@cache_last_modified.nil? ||
@@ -60,6 +63,7 @@ module Bitsa #:nodoc:
     end
 
     # Remove all entries from cache.
+    # @return [nil]
     def clear!
       @addresses.clear
       @cache_last_modified = nil
@@ -109,6 +113,12 @@ module Bitsa #:nodoc:
     # @param [String] id ID of contact to be updated
     # @param [String] name new name for contact
     # @param [String[]] addresses array of email addresses
+    #
+    # @return [[String, String]] Array of email addresses for the <tt>id</tt>
+    #                            after update.
+    #                            Each element consists of a 2 element array. The
+    #                            first is the email address and the second is
+    #                            the name
     def update(id, name, addresses)
       @cache_last_modified = DateTime.now.to_s
       @addresses[id] = addresses.map { |a| [a, name] }

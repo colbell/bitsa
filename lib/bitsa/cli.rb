@@ -35,17 +35,17 @@ module Bitsa #:nodoc:
     attr_reader :global_opts
     # @!attribute [r] global_opts
     #   Global options passed on the command line.
-    #   @return [Hash] the options passed on the command line
+    #   @return [Hash]
 
     attr_reader :cmd
     # @!attribute [r] cmd
     #   command to execute
-    #   @return [String] the command to execute
+    #   @return [String]
 
     attr_reader :search_data
     # @!attribute [r] search_data
-    #   Search data
-    #   @return [String] the data to search cached contacts for
+    #    the data to search cached contacts for
+    #   @return [String]
 
     # Parse arguments and setup attributes.
     #
@@ -56,7 +56,7 @@ module Bitsa #:nodoc:
     #
     # @param args [String[]] Cmd line arguments.
     #
-    # @return [nil] Ignored
+    # @return [nil]
     #
     # @raise [TrollopException] If invalid data is passed
     def parse(args)
