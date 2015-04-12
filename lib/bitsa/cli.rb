@@ -37,7 +37,7 @@ module Bitsa #:nodoc:
     # @example
     #   global_opts[:config_file] # => "~/.bitsa.yml"
     #
-    # @return [Hash]
+    # @return [Hash] <tt>Hash</tt> of options passed on command line.
     #
     # @!attribute [r] global_opts
     attr_reader :global_opts
@@ -49,7 +49,7 @@ module Bitsa #:nodoc:
     #   @example
     #     cmd # => "reload"
     #
-    #   @return [String]
+    #   @return [String] the command to be executed
 
     attr_reader :search_data
     # @!attribute [r] search_data
