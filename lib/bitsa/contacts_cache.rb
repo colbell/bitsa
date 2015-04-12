@@ -74,6 +74,10 @@ module Bitsa #:nodoc:
 
     # Remove all entries from cache.
     #
+    # @example
+    #   cache.clear
+    #   cache.size # => 0
+    #
     # @return [nil]
     def clear!
       @addresses.clear
