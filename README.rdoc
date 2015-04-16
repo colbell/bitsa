@@ -6,6 +6,7 @@ http://github.com/colbell/bitsa
 {<img src="https://codeclimate.com/github/colbell/bitsa/badges/gpa.svg" />}[https://codeclimate.com/github/colbell/bitsa]
 {<img src="http://inch-ci.org/github/colbell/bitsa.svg?branch=master&style=shields" alt="Inline docs" />}[http://inch-ci.org/github/colbell/bitsa]
 {<img src="https://travis-ci.org/colbell/bitsa.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/colbell/bitsa]
+{<img src="https://img.shields.io/badge/licence-GPL3-brightgreen.svg" alt="Build Status"/>[https://github.com/colbell/bitsa/blob/master/COPYING]
 
 A command line tool written in Ruby to access your GMail/Google Apps
 contacts. Designed to be used from Mutt but should be able to be used
